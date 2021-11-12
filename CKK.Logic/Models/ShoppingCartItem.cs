@@ -18,6 +18,17 @@ namespace CKK.Logic.Models
             set { quantity = value; }
         }
 
+        //No Idea if I did below right
+        public void SetProduct(Product pr)
+        {
+            p = pr;
+        }
+      
+        public Product GetProduct()
+        {
+            return p;
+        }
+        //No idea if above is correct
         public ShoppingCartItem(Product product, int quantity)
         {
             Quantity = quantity;

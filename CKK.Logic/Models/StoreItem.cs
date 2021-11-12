@@ -17,6 +17,17 @@ namespace CKK.Logic.Models
             set { quantity = value; }
         }
 
+        //No idea is below is correct
+        public void SetProduct(Product pr)
+        {
+            p = pr;
+        }
+
+        public Product GetProduct()
+        {
+            return p;
+        }
+        //No idea if above is correct
         public StoreItem(Product product, int quantity)
         {
             Quantity = quantity;
