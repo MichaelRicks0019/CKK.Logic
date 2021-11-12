@@ -14,38 +14,20 @@ namespace CKK.Logic.Models
 
         public int Id
         {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                Id = id;
-            }
+            get { return id; }
+            set { id = value; }
         }
         
         public string Name
         {
-           get
-           {
-            return name;
-           }
-           set
-           {
-            Name = name;
-           }
+           get { return name; }
+           set { name = value; }
         }
 
         public string Address
         {
-            get 
-            {
-                return address;
-            }
-            set
-            {
-                Address = address;
-            }
+            get { return address; }
+            set { address = value; }
         }
         
     }
