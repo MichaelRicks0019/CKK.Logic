@@ -8,30 +8,33 @@ namespace CKK.Logic.Models
 {
      public class StoreItem
     {
+        //Product : Product
         Product p = new Product();
         private int quantity;
 
-        public int Quantity
+        //Get and Set for Quantity
+        public int GetQuantity()
         {
-            get { return quantity; }
-            set { quantity = value; }
+            return quantity;
         }
-
-        //No idea is below is correct
-        public void SetProduct(Product pr)
+        public void SetQuantity(int storeItemQuantity)
         {
-            p = pr;
+            quantity = storeItemQuantity;
         }
-
+        //Get and Set for product
+        public void SetProduct(Product storeItemProduct)
+        {
+            p = storeItemProduct;
+        }
         public Product GetProduct()
         {
             return p;
         }
-        //No idea if above is correct
-        public StoreItem(Product product, int quantity)
+        //Constructor
+        public StoreItem (Product storeItemProduct, int storeItemQuantity)
         {
-            Quantity = quantity;
-            product = p;
+            quantity = storeItemQuantity;
+            p = storeItemProduct;
         }
     }
 }

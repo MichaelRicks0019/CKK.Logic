@@ -12,21 +12,32 @@ namespace CKK.Logic.Models
         private string name;
         private decimal price;
 
-        public int Id
+        //Get and set ID
+        public int GetId()
         {
-            get { return id; }
-            set { id = value; }
+            return id;
         }
-        public string Name
+        public void SetId(int productId)
         {
-            get { return name; }
-            set { name = value; }
+            id = productId;
         }
-
-        public decimal Price
+        //Get and Set Name
+        public string GetName()
         {
-            get { return price; }
-            set { price = value; }
+            return name;
+        }
+        public void SetName(string productName)
+        {
+            name = productName;
+        }
+        //Get and Set Price
+        public decimal GetPrice()
+        {
+            return price;
+        }
+        public void SetPrice(decimal productPrice)
+        {
+            price = productPrice;
         }
         
     }

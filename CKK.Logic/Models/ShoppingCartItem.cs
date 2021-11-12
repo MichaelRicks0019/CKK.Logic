@@ -12,27 +12,29 @@ namespace CKK.Logic.Models
         Product p = new Product();
         private int quantity;
 
-        public int Quantity
+        //Get and Set for Quantity
+        public int GetQuantity()
         {
-            get { return quantity; }
-            set { quantity = value; }
+            return quantity;
         }
-
-        //No Idea if I did below right
-        public void SetProduct(Product pr)
+        public void SetQuantity(int shoppingCartItemQuantity)
         {
-            p = pr;
+            quantity = shoppingCartItemQuantity;
         }
-      
+        //Get and Set for product
+        public void SetProduct(Product shoppingCartItemProduct)
+        {
+            p = shoppingCartItemProduct;
+        }
         public Product GetProduct()
         {
             return p;
         }
-        //No idea if above is correct
-        public ShoppingCartItem(Product product, int quantity)
+        //Constructor
+        public ShoppingCartItem(Product shoppingCartItemProduct, int ShoppingCartItemQuantity)
         {
-            Quantity = quantity;
-            product = p;
+            quantity = ShoppingCartItemQuantity;
+            p = shoppingCartItemProduct;
         }
     }
 }

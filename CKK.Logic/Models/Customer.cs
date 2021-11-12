@@ -6,29 +6,38 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Models
 {
-     public class Customer
+    public class Customer
     {
         private int id;
         private string name;
-        private string address; 
+        private string address;
 
-        public int Id
+        //GetId Method
+        public int GetId()
         {
-            get { return id; }
-            set { id = value; }
+            return id;
         }
-        
-        public string Name
+        public void SetId(int customerId)
         {
-           get { return name; }
-           set { name = value; }
+            id = customerId;
         }
-
-        public string Address
+        //GetName Method
+        public string GetName()
         {
-            get { return address; }
-            set { address = value; }
+            return name;
         }
-        
-    }
+        public void SetName(string customerName)
+        {
+            name = customerName;
+        }
+        //GetAddress Methos
+        public string GetAddress()
+        {
+            return address;
+        }
+        public void SetAddress(string customerAddress)
+        {
+            address = customerAddress;
+        }
+    }   
 }
