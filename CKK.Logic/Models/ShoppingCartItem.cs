@@ -30,6 +30,11 @@ namespace CKK.Logic.Models
         {
             return p;
         }
+
+        public decimal GetTotal()
+        {
+            return p.GetPrice();
+        }
         //Constructor
         public ShoppingCartItem(Product shoppingCartItemProduct, int ShoppingCartItemQuantity)
         {
