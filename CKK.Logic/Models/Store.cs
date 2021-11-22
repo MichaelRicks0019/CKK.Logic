@@ -60,13 +60,13 @@ namespace CKK.Logic.Models
             switch (productNum)
             {
                 case 1:
-                    product1 == null;
+                    product1 = null;
                     break;
                 case 2:
-                    product2 == null;
+                    product2 = null;
                     break;
                 case 3:
-                    product3 == null;
+                    product3 = null;
                     break;
                 default:
                     Console.WriteLine("An incorrect product number was entered.");
@@ -80,22 +80,19 @@ namespace CKK.Logic.Models
             {
                 case 1:
                     return product1;
-                    break;
                 case 2:
                     return product2;
-                    break;
                 case 3:
                     return product3;
-                    break;
                 default:
                     Console.WriteLine("The product number that was entered doesn't exist.");
                     break;
             }
         }
         //Find an item using the id
-        public Product FindStoreItemById(int storeId)
+        public Product FindStoreItemById(int idFromStore)
         {
-            if (storeId == Product.id)
+            if (idFromStore == product1.GetId())
             {
                 if (product1.GetId() == product2.GetId() || product1.GetId() == product3.GetId())
                 {
@@ -107,14 +104,14 @@ namespace CKK.Logic.Models
                 }
                 else
                 {
-                    return Product.id;
+                    return Product.id; //ALOT NEEDS TO BE CHANGED HERE
                 }
             }
             else
             {
                 Console.WriteLine("Entered Id couldn't be found");
             }
-
+            //Copy above and use it for product1, 2, 3...etc.
             
         }
     }
