@@ -33,7 +33,7 @@ namespace CKK.Logic.Models
         {
             storeName = name;
         }
-
+        //Add product to store
         public void AddStoreItem(Product storeProduct)
         {
             if (product1 == null)
@@ -48,10 +48,73 @@ namespace CKK.Logic.Models
             {
                 storeProduct = product3;
             }
+            else 
+            {
+                Console.WriteLine("There is no available spot to add an item");
+            }
+            
+        }
+        //Remove product from store
+        public void RemoveStoreItem(int productNum)
+        {
+            switch (productNum)
+            {
+                case 1:
+                    product1 == null;
+                    break;
+                case 2:
+                    product2 == null;
+                    break;
+                case 3:
+                    product3 == null;
+                    break;
+                default:
+                    Console.WriteLine("An incorrect product number was entered.");
+                    break;
+            }
+        }
+        //Returns store item
+        public Product GetStoreItem(int productNum)
+        {
+            switch (productNum)
+            {
+                case 1:
+                    return product1;
+                    break;
+                case 2:
+                    return product2;
+                    break;
+                case 3:
+                    return product3;
+                    break;
+                default:
+                    Console.WriteLine("The product number that was entered doesn't exist.");
+                    break;
+            }
+        }
+        //Find an item using the id
+        public Product FindStoreItemById(int storeId)
+        {
+            if (storeId == Product.id)
+            {
+                if (product1.GetId() == product2.GetId() || product1.GetId() == product3.GetId())
+                {
+                    product1.GetId();
+                }
+                else if (product2.GetId() == product3.GetId())
+                {
+                    product2.GetId();
+                }
+                else
+                {
+                    return Product.id;
+                }
+            }
             else
             {
-                //Put something here maybe
+                Console.WriteLine("Entered Id couldn't be found");
             }
+
             
         }
     }
