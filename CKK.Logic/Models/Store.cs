@@ -123,7 +123,6 @@ namespace CKK.Logic.Models
             }
             else
             {
-                Console.WriteLine("Entered Id couldn't be found.");
                 return null;
             }
 
