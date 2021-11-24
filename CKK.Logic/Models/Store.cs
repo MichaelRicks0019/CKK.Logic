@@ -94,25 +94,39 @@ namespace CKK.Logic.Models
         {
             if (idFromStore == product1.GetId())
             {
-                if (product1.GetId() == product2.GetId() || product1.GetId() == product3.GetId())
+                product1.GetId();
+            }
+            else if (idFromStore == product2.GetId())
+            {
+                if (product2.GetId() == product1.GetId())
                 {
                     product1.GetId();
                 }
-                else if (product2.GetId() == product3.GetId())
+                else
+                {
+                    product2.GetId();
+                }
+            }
+            else if (idFromStore == product3.GetId())
+            {
+                if (product3.GetId() == product1.GetId())
+                {
+                    product1.GetId();
+                }
+                else if (product3.GetId() == product2.GetId())
                 {
                     product2.GetId();
                 }
                 else
                 {
-                    return Product.id; //ALOT NEEDS TO BE CHANGED HERE
+                    product3.GetId();
                 }
             }
             else
             {
-                Console.WriteLine("Entered Id couldn't be found");
+                Console.WriteLine("Entered Id couldn't be found.");
             }
-            //Copy above and use it for product1, 2, 3...etc.
-            
+
         }
     }
 }
