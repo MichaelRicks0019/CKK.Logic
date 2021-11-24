@@ -86,7 +86,6 @@ namespace CKK.Logic.Models
                 default:
                     Console.WriteLine("The product number that was entered doesn't exist.");
                     return null;
-                    break;
             }
         }
         //Find an item using the id
