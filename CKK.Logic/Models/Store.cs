@@ -21,17 +21,16 @@ namespace CKK.Logic.Models
         }
         public void SetId(int storeId)
         {
-            storeId = id;
+            id = storeId;
         }
         //Get and Set name below
         public string GetName()
         {
             return name;
         }
-
         public void SetName(string storeName)
         {
-            storeName = name;
+            name = storeName;
         }
         //Add product to store
         public void AddStoreItem(Product storeProduct)
@@ -86,6 +85,7 @@ namespace CKK.Logic.Models
                     return product3;
                 default:
                     Console.WriteLine("The product number that was entered doesn't exist.");
+                    return null;
                     break;
             }
         }
@@ -125,6 +125,7 @@ namespace CKK.Logic.Models
             else
             {
                 Console.WriteLine("Entered Id couldn't be found.");
+                return null;
             }
 
         }
