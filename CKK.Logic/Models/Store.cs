@@ -93,32 +93,32 @@ namespace CKK.Logic.Models
         {
             if (idFromStore == product1.GetId())
             {
-                product1.GetId();
+                return product1.GetId();
             }
             else if (idFromStore == product2.GetId())
             {
                 if (product2.GetId() == product1.GetId())
                 {
-                    product1.GetId();
+                   return product1.GetId();
                 }
                 else
                 {
-                    product2.GetId();
+                    return product2.GetId();
                 }
             }
             else if (idFromStore == product3.GetId())
             {
                 if (product3.GetId() == product1.GetId())
                 {
-                    product1.GetId();
+                    return product1.GetId();
                 }
                 else if (product3.GetId() == product2.GetId())
                 {
-                    product2.GetId();
+                    return product2.GetId();
                 }
                 else
                 {
-                    product3.GetId();
+                    return product3.GetId();
                 }
             }
             else
