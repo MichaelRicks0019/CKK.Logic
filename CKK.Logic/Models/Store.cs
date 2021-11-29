@@ -37,19 +37,19 @@ namespace CKK.Logic.Models
         {
             if (product1 == null)
             {
-                storeProduct = product1;
+                product1 = storeProduct;
             }
             else if (product2 == null)
             {
-                storeProduct = product2;
+                product2 = storeProduct;
             }
             else if (product3 == null )
             {
-                storeProduct = product3;
+                product3 = storeProduct;
             }
             else 
             {
-                Console.WriteLine("There is no available spot to add an item");
+                
             }
             
         }
@@ -68,7 +68,6 @@ namespace CKK.Logic.Models
                     product3 = null;
                     break;
                 default:
-                    Console.WriteLine("An incorrect product number was entered.");
                     break;
             }
         }
@@ -84,7 +83,6 @@ namespace CKK.Logic.Models
                 case 3:
                     return product3;
                 default:
-                    Console.WriteLine("The product number that was entered doesn't exist.");
                     return null;
             }
         }
@@ -103,10 +101,7 @@ namespace CKK.Logic.Models
             {
                 return product3;
             }
-            else
-            {
                 return null;
-            }
         }
     }
 }
