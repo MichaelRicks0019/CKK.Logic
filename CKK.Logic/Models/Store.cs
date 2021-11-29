@@ -91,15 +91,15 @@ namespace CKK.Logic.Models
         //Find an item using the id
         public Product FindStoreItemById(int idFromStore)
         {
-            if (Product.id == idFromStore)
+            if (product1.GetId() == idFromStore)
             {
                 return product1;
             }
-            if (Product.id == idFromStore)
+            if (product2.GetId() == idFromStore)
             {
                 return product2;
             }
-            if (Product.id == idFromStore)
+            if (product3.GetId() == idFromStore)
             {
                 return product3;
             }
