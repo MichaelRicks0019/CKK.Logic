@@ -33,7 +33,7 @@ namespace CKK.Logic.Models
 
         public decimal GetTotal()
         {
-            return p.GetPrice();
+            return p.GetPrice() * GetQuantity();
         }
         //Constructor
         public ShoppingCartItem(Product shoppingCartItemProduct, int ShoppingCartItemQuantity)
