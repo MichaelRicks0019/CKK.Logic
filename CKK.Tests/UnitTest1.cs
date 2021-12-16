@@ -23,7 +23,7 @@ namespace CKK.Tests
             var cheese = new StoreItem(product1, 10);
             cheese.SetProduct(product1);
 
-
+            //
             //Act
            
 
