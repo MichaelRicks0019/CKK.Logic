@@ -8,7 +8,7 @@ using CKK.Logic.Models;
 
 namespace CKK.Logic
 {
-    class ShoppingCart
+    public class ShoppingCart
     {
         private Customer newCustomer = new Customer();
         private ShoppingCartItem product1;
@@ -25,35 +25,38 @@ namespace CKK.Logic
             newCustomer.GetId();
         }
 
-        public void AddProduct(Product prod, int quantity)
+        public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
             if (product1 == null)
             {
-                product1.SetProduct(prod);
+                prod = product1.GetProduct();
                 if (quantity >= 0)
                 {
                     product1.SetQuantity(quantity);
                 }
+                return product1;
             }
             else if (product2 == null)
             {
-                product2.SetProduct(prod);
+                prod = product2.GetProduct();
                 if (quantity >= 0)
                 {
                     product2.SetQuantity(quantity);
                 }
+                return product2;
             }
             else if (product3 == null)
             {
-                product3.SetProduct(prod);
+                prod = product3.GetProduct();
                 if (quantity >= 0)
                 {
                     product2.SetQuantity(quantity);
                 }
+                return product3;
             }
             else
             {
-
+                return null;
             }
         }
 
@@ -61,20 +64,20 @@ namespace CKK.Logic
         {
             if (product1 == null)
             {
-                product1.SetProduct(prod);
+                prod = product1.GetProduct();
                 product1.SetQuantity(1);
                 return product1;
             }
             else if (product2 == null)
             {
-                product2.SetProduct(prod);
+                prod = product2.GetProduct();
                 product2.SetQuantity(1);
                 return product2;
 
             }
             else if (product3 == null)
             {
-                product3.SetProduct(prod);
+                prod = product3.GetProduct();
                 product3.SetQuantity(1);
                 return product3;
             }
