@@ -50,20 +50,31 @@ namespace CKK.Tests
             john.SetName(nameCustomer);
             john.SetAddress(addressCustomer);
 
+
             //ACT
+            //ShoppingCartItem
+            ShoppingCartItem cheeseItem = new ShoppingCartItem(product1, 10);
+            cheeseItem.SetProduct(cheeseItem.GetProduct());
+
+            ShoppingCartItem milkItem = new ShoppingCartItem(product2, 20);
+            milkItem.SetProduct(milkItem.GetProduct());
+
+            ShoppingCartItem butterItem = new ShoppingCartItem(product3, 30);
+            butterItem.SetProduct(butterItem.GetProduct());
+
             //Shop Created and Named
             Store dairyShop = new Store();
             dairyShop.SetName("Dairy Shop");
             dairyShop.SetId(1234);
 
             //StoreItems created and added to store
-            var cheese = new StoreItem(product1, 10);
+            var cheese = new StoreItem(cheeseItem.GetProduct(), 10);
             dairyShop.AddStoreItem(cheese.GetProduct());
 
-            StoreItem milk = new StoreItem(product2, 20);
+            StoreItem milk = new StoreItem(milkItem.GetProduct(), 20);
             dairyShop.AddStoreItem(milk.GetProduct());
 
-            StoreItem butter = new StoreItem(product3, 30);
+            StoreItem butter = new StoreItem(butterItem.GetProduct(), 30);
             dairyShop.AddStoreItem(butter.GetProduct());
 
             //Customer Shopping
