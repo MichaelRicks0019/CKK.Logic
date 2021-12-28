@@ -29,7 +29,7 @@ namespace CKK.Logic
         {
             if (product1 == null)
             {
-                prod = product1.GetProduct();
+                product1.SetProduct(prod);
                 if (quantity >= 0)
                 {
                     product1.SetQuantity(quantity);
@@ -38,7 +38,7 @@ namespace CKK.Logic
             }
             else if (product2 == null)
             {
-                prod = product2.GetProduct();
+                product2.SetProduct(prod);
                 if (quantity >= 0)
                 {
                     product2.SetQuantity(quantity);
@@ -47,7 +47,7 @@ namespace CKK.Logic
             }
             else if (product3 == null)
             {
-                prod = product3.GetProduct();
+                product3.SetProduct(prod);
                 if (quantity >= 0)
                 {
                     product2.SetQuantity(quantity);
@@ -64,20 +64,20 @@ namespace CKK.Logic
         {
             if (product1 == null)
             {
-                prod = product1.GetProduct();
+                product1.SetProduct(prod);
                 product1.SetQuantity(1);
                 return product1;
             }
             else if (product2 == null)
             {
-                prod = product2.GetProduct();
+                product2.SetProduct(prod);
                 product2.SetQuantity(1);
                 return product2;
 
             }
             else if (product3 == null)
             {
-                prod = product3.GetProduct();
+                product3.SetProduct(prod);
                 product3.SetQuantity(1);
                 return product3;
             }
@@ -108,7 +108,7 @@ namespace CKK.Logic
                 int qty = product2.GetQuantity();
                 if (quantity < qty)
                 {
-                    product2.SetQuantity(qty - quantity);
+                    product2.SetQuantity(qty - quantity); 
                     return product2;
                 }
                 else
@@ -128,7 +128,7 @@ namespace CKK.Logic
                 else
                 {
                     product3 = null;
-                    return product3;
+                    return product3; 
                 }
             }
             else
