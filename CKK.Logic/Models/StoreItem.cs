@@ -9,7 +9,7 @@ namespace CKK.Logic.Models
      public class StoreItem
     {
         //Product : Product
-        Product p = new Product();
+        private Product p;
         private int quantity;
 
         //Get and Set for Quantity
