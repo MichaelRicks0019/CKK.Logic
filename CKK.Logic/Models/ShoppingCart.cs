@@ -10,19 +10,20 @@ namespace CKK.Logic.Models
 {
     public class ShoppingCart
     {
-        private Customer newCustomer;
+
+        private Customer customer;
         private ShoppingCartItem product1;
         private ShoppingCartItem product2;
         private ShoppingCartItem product3;
 
         public ShoppingCart(Customer cust)
         {
-            newCustomer = cust;
+            customer = cust;
         }
 
         public void GetCustomerId()
         {
-            newCustomer.GetId();
+            customer.GetId();
         }
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
