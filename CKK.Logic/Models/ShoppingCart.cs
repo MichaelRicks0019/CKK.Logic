@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CKK.Logic.Models;
 
 
-namespace CKK.Logic
+namespace CKK.Logic.Models
 {
     public class ShoppingCart
     {
