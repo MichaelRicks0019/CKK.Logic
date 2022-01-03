@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CKK.Logic.Models;
 
 
 namespace CKK.Logic.Models
@@ -21,9 +20,9 @@ namespace CKK.Logic.Models
             customer = cust;
         }
 
-        public void GetCustomerId()
+        public int GetCustomerId()
         {
-            customer.GetId();
+            return customer.GetId();
         }
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
