@@ -10,7 +10,7 @@ namespace CKK.Logic
 {
     public class ShoppingCart
     {
-        private Customer newCustomer = new Customer();
+        private Customer newCustomer;
         private ShoppingCartItem product1;
         private ShoppingCartItem product2;
         private ShoppingCartItem product3;
@@ -27,32 +27,52 @@ namespace CKK.Logic
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
-            if (product1 == null)
+            if (quantity >= 0)
             {
-                product1.SetProduct(prod);
-                if (quantity >= 0)
+                //Product 1
+                if (product1 != null && product1.GetProduct().GetId() == prod.GetId())
                 {
+                    product1.SetQuantity(product1.GetQuantity() + quantity);
+                    return product1;
+                }
+                else if (product1 == null)
+                {
+                    //ADD NEW PRODUCT OR FIGURE OUT HOW TO MAKE PRODUCT1 ACCEPT ITEM
+                    product1 = new ShoppingCartItem(prod, quantity);
                     product1.SetQuantity(quantity);
+                    product1.SetProduct(prod);
+                    return product1;
                 }
-                return product1;
-            }
-            else if (product2 == null)
-            {
-                product2.SetProduct(prod);
-                if (quantity >= 0)
+                //Product 2
+                else if (product2 != null && product2.GetProduct().GetId() == prod.GetId())
                 {
-                    product2.SetQuantity(quantity);
+                    product2.SetQuantity(product2.GetQuantity() + quantity);
+                    return product2;
                 }
-                return product2;
-            }
-            else if (product3 == null)
-            {
-                product3.SetProduct(prod);
-                if (quantity >= 0)
+                else if (product2 == null)
                 {
+                    product2 = new ShoppingCartItem(prod, quantity);
                     product2.SetQuantity(quantity);
+                    product2.SetProduct(prod);
+                    return product2;
                 }
-                return product3;
+                //Product 3
+                else if (product3 != null && product3.GetProduct().GetId() == prod.GetId())
+                {
+                    product3.SetQuantity(product3.GetQuantity() + quantity);
+                    return product3;
+                }
+                else if (product3 == null)
+                {
+                    product3 = new ShoppingCartItem(prod, quantity);
+                    product3.SetQuantity(quantity);
+                    product3.SetProduct(prod);
+                    return product3;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
@@ -62,24 +82,9 @@ namespace CKK.Logic
 
         public ShoppingCartItem AddProduct(Product prod)
         {
-            if (product1 == null)
+            if (product1 == null || product2 == null || product3 == null)
             {
-                product1.SetProduct(prod);
-                product1.SetQuantity(1);
-                return product1;
-            }
-            else if (product2 == null)
-            {
-                product2.SetProduct(prod);
-                product2.SetQuantity(1);
-                return product2;
-
-            }
-            else if (product3 == null)
-            {
-                product3.SetProduct(prod);
-                product3.SetQuantity(1);
-                return product3;
+                return AddProduct(prod, 1);
             }
             else
             {
