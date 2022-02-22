@@ -55,6 +55,8 @@ namespace CKK.Logic.Models
             if (itemFound == false)
             {
                 StoreItem item = new StoreItem(storeProduct, storeQuantity);
+                item.SetProduct(storeProduct);
+                item.SetQuantity(storeQuantity);
                 items.Add(item);
                 return item;
             }
