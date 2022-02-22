@@ -36,75 +36,70 @@ namespace CKK.Logic.Models
             name = storeName;
         }
         //Add product to store
-        public void AddStoreItem(Product storeProduct)
+        public StoreItem AddStoreItem(Product storeProduct, int storeQuantity)
         {
-            if (product1 == null)
+            bool itemFound = false;
+            foreach (StoreItem item in items)
             {
-                product1 = storeProduct;
+                if (item.GetProduct() == storeProduct && storeQuantity >= 0)
+                {
+                    itemFound = true;
+                    item.SetQuantity(item.GetQuantity() + storeQuantity);
+                    return item;
+                }
+                else if (storeQuantity < 0)
+                {
+                    return null;
+                }
             }
-            else if (product2 == null)
+            if (itemFound == false)
             {
-                product2 = storeProduct;
+                StoreItem item = new StoreItem(storeProduct, storeQuantity);
+                items.Add(item);
+                return item;
             }
-            else if (product3 == null )
+            else
             {
-                product3 = storeProduct;
-            }
-            else 
-            {
-                
+                return null;
             }
             
         }
         //Remove product from store
-        public void RemoveStoreItem(int productNum)
+        public StoreItem RemoveStoreItem(int id, int storeQuantity)
         {
-            switch (productNum)
+            foreach (StoreItem item in items)
             {
-                case 1:
-                    product1 = null;
-                    break;
-                case 2:
-                    product2 = null;
-                    break;
-                case 3:
-                    product3 = null;
-                    break;
-                default:
-                    break;
+                if (item.GetProduct().GetId() == id && item.GetQuantity() - storeQuantity <= 0)
+                {
+                    item.SetQuantity(0);
+                    return item;
+                }
+                else if (item.GetProduct().GetId() == id && item.GetQuantity() - storeQuantity > 0)
+                {
+                    item.SetQuantity(item.GetQuantity() - storeQuantity);
+                    return item;
+                }
             }
-        }
-        //Returns store item
-        public Product GetStoreItem(int productNum)
-        {
-            switch (productNum)
-            {
-                case 1:
-                    return product1;
-                case 2:
-                    return product2;
-                case 3:
-                    return product3;
-                default:
-                    return null;
-            }
+            return null;
         }
         //Find an item using the id
-        public Product FindStoreItemById(int idFromStore)
+        public StoreItem FindStoreItemById(int idFromStore)
         {
-            if (product1.GetId() == idFromStore)
+            foreach(StoreItem item in items)
             {
-                return product1;
+                if (item.GetProduct().GetId() == idFromStore)
+                {
+                    return item;
+                }
             }
-            if (product2.GetId() == idFromStore)
-            {
-                return product2;
-            }
-            if (product3.GetId() == idFromStore)
-            {
-                return product3;
-            }
-                return null;
+            return null;
         }
+        //Returns store items
+        public List<StoreItem> GetStoreItems()
+        {
+            return items;
+        }
+
+
     }
 }

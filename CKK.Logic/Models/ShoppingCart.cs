@@ -11,12 +11,11 @@ namespace CKK.Logic.Models
     {
 
         private Customer customer;
-        private ShoppingCartItem product1;
-        private ShoppingCartItem product2;
-        private ShoppingCartItem product3;
+        private List<ShoppingCartItem> products;
 
         public ShoppingCart(Customer cust)
         {
+            products = new List<ShoppingCartItem>();
             customer = cust;
         }
 
@@ -27,7 +26,93 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
-            if (quantity >= 0)
+            bool itemFound = false;
+            foreach (ShoppingCartItem item in products)
+            {
+                if (item.GetProduct() == prod && quantity > 0)
+                {
+                    itemFound = true;
+                    item.SetQuantity(item.GetQuantity() + quantity);
+                    return item;
+                }
+                else if (quantity < 0)
+                {
+                    return null;
+                }
+            }
+            if (itemFound == false)
+            {
+                ShoppingCartItem item = new ShoppingCartItem(prod, quantity);
+                products.Add(item);
+                return item;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public ShoppingCartItem RemoveProduct(int id, int quantity)
+        {
+            foreach (ShoppingCartItem item in products)
+            {
+                if (item.GetProduct().GetId() == id && item.GetQuantity() - quantity <= 0)
+                {
+                    item.SetQuantity(0);
+                    products.Remove(item);
+                    return item;
+                }
+                else if (item.GetProduct().GetId() == id && item.GetQuantity() - quantity > 0)
+                {
+                    item.SetQuantity(item.GetQuantity() - quantity);
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public ShoppingCartItem GetProductById(int id)
+        {
+           foreach (ShoppingCartItem item in products)
+            {
+                if (item.GetProduct().GetId() == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public decimal GetTotal()
+        {
+            decimal total = 0m;
+            foreach (ShoppingCartItem item in products)
+            {
+                total += item.GetTotal();
+            }
+            return total;
+        }
+
+        public List<ShoppingCartItem> GetProducts()
+        {
+            return products;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Add Product OLD
+
+ * if (quantity >= 0)
             {
                 //Product 1
                 if (product1 != null && product1.GetProduct().GetId() == prod.GetId())
@@ -78,23 +163,13 @@ namespace CKK.Logic.Models
             {
                 return null;
             }
-        }
 
-        public ShoppingCartItem AddProduct(Product prod)
-        {
-            if (product1 == null || product2 == null || product3 == null)
-            {
-                return AddProduct(prod, 1);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public ShoppingCartItem RemoveProduct(Product prod, int quantity)
-        {
-            if(product1 != null && product1.GetProduct().GetId() == prod.GetId())
+ 
+ 
+ 
+ 
+    Remove Product OLD
+ * if(product1 != null && product1.GetProduct().GetId() == prod.GetId())
             {
                 int qty = product1.GetQuantity();
                 if (quantity < qty)
@@ -139,52 +214,4 @@ namespace CKK.Logic.Models
             else
             {
                 return null;
-            }
-        }
-
-        public ShoppingCartItem GetProductById(int id)
-        {
-            if (product1.GetProduct().GetId() == id)
-            {
-                return product1;
-            }
-            else if (product2.GetProduct().GetId() == id)
-            {
-                return product2;
-            }
-            else if (product3.GetProduct().GetId() == id)
-            {
-                return product3;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public decimal GetTotal()
-        {
-            decimal total1 = product1.GetQuantity() * product1.GetProduct().GetPrice();
-            decimal total2 = product2.GetQuantity() * product2.GetProduct().GetPrice();
-            decimal total3 = product3.GetQuantity() * product3.GetProduct().GetPrice();
-            decimal total = total1 + total2 + total3;
-            return total;
-        }
-
-        public ShoppingCartItem GetProduct(int productNum)
-        {
-            switch (productNum)
-            {
-                case 1:
-                    return product1;
-                case 2:
-                    return product2;
-                case 3:
-                    return product3;
-                default:
-                    return null;
-            }
-
-        }
-    }
-}
+            }*/
