@@ -10,10 +10,13 @@ namespace CKK.Logic.Models
     {
         private int id;
         private string name;
-        private Product product1;
-        private Product product2;
-        private Product product3;
+        private List<StoreItem> items;
 
+        //Constructor with initialized list
+        public Store ()
+        {
+            items = new List<StoreItem>();
+        }
         //Get and Set id below
         public int GetId()
         {
