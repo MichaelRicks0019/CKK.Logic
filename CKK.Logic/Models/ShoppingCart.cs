@@ -43,7 +43,7 @@ namespace CKK.Logic.Models
             if (itemFound == false)
             {
                     ShoppingCartItem item = new ShoppingCartItem(prod, quantity);
-                    products.Add(new ShoppingCartItem(prod, quantity);
+                    products.Add(new ShoppingCartItem(prod, quantity));
                     return item;
             }
             else
