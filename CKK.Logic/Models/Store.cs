@@ -45,7 +45,7 @@ namespace CKK.Logic.Models
                 {
                     return null;
                 }
-                else if (item.GetProduct() == storeProduct && storeQuantity >= 0)
+                else if (item.GetProduct() == storeProduct && storeQuantity > 0)
                 {
                     itemFound = true;
                     item.SetQuantity(item.GetQuantity() + storeQuantity);
