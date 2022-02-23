@@ -27,17 +27,21 @@ namespace CKK.Logic.Models
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
             bool itemFound = false;
-            foreach (ShoppingCartItem item in products)
+
+            if (quantity <= 0)
             {
-                if (quantity <= 0)
+                return null;
+            }
+            else if (quantity > 0)
+            {
+                foreach (ShoppingCartItem item in products)
                 {
-                    return null;
-                }
-                else if (item.GetProduct() == prod && quantity > 0)
-                {
-                    itemFound = true;
-                    item.SetQuantity(item.GetQuantity() + quantity);
-                    return item;
+                    if (item.GetProduct() == prod)
+                    {
+                        itemFound = true;
+                        item.SetQuantity(item.GetQuantity() + quantity);
+                        return item;
+                    }
                 }
             }
             if (itemFound == false)

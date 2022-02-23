@@ -39,17 +39,20 @@ namespace CKK.Logic.Models
         public StoreItem AddStoreItem(Product storeProduct, int storeQuantity)
         {
             bool itemFound = false;
-            foreach (StoreItem item in items)
+            if (storeQuantity <= 0)
             {
-                if (storeQuantity <= 0)
+                return null;
+            }
+            else if (storeQuantity > 0)
+            {
+                foreach (StoreItem item in items)
                 {
-                    return null;
-                }
-                else if (item.GetProduct() == storeProduct && storeQuantity > 0)
-                {
-                    itemFound = true;
-                    item.SetQuantity(item.GetQuantity() + storeQuantity);
-                    return item;
+                    if (item.GetProduct() == storeProduct)
+                    {
+                        itemFound = true;
+                        item.SetQuantity(item.GetQuantity() + storeQuantity);
+                        return item;
+                    }
                 }
             }
             if (itemFound == false)
