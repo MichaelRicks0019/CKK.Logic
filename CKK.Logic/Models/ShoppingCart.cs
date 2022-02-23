@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CKK.Logic.Models;
 
 namespace CKK.Logic.Models
 {
@@ -29,22 +29,22 @@ namespace CKK.Logic.Models
             bool itemFound = false;
             foreach (ShoppingCartItem item in products)
             {
-                if (item.GetProduct() == prod && quantity > 0)
+                if (quantity <= 0)
+                {
+                    return null;
+                }
+                else if (item.GetProduct() == prod && quantity > 0)
                 {
                     itemFound = true;
                     item.SetQuantity(item.GetQuantity() + quantity);
                     return item;
                 }
-                else if (quantity < 0)
-                {
-                    return null;
-                }
             }
             if (itemFound == false)
             {
-                ShoppingCartItem item = new ShoppingCartItem(prod, quantity);
-                products.Add(item);
-                return item;
+                    ShoppingCartItem item = new ShoppingCartItem(prod, quantity);
+                    products.Add(new ShoppingCartItem(prod, quantity);
+                    return item;
             }
             else
             {

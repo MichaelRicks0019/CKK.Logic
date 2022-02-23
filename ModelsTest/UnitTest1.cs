@@ -14,6 +14,11 @@ namespace ModelsTest
             teriyakiJerky.SetName("Teriyaki Beef Jerky");
             teriyakiJerky.SetPrice(4.99m);
 
+            Product bbqJerky = new Product();
+            bbqJerky.SetId(0002);
+            bbqJerky.SetName("BBQ Beef Jerky");
+            bbqJerky.SetPrice(4.99m);
+
             Customer jerry = new Customer();
             jerry.SetId(1234);
             jerry.SetName("Jerry");
@@ -23,9 +28,11 @@ namespace ModelsTest
             theJerkyStore.SetId(4422);
             theJerkyStore.SetName("The Jerky Store \"Where we Jerk your Meat!\" ");
             theJerkyStore.AddStoreItem(teriyakiJerky, 20);
+            theJerkyStore.AddStoreItem(bbqJerky, 9);
 
             ShoppingCart jerrysShoppingCart = new ShoppingCart(jerry);
             jerrysShoppingCart.AddProduct(theJerkyStore.FindStoreItemById(0001).GetProduct(), 3);
+            jerrysShoppingCart.AddProduct(theJerkyStore.FindStoreItemById(0002).GetProduct(), 2);
 
             Assert.Equal(teriyakiJerky.GetId(), jerrysShoppingCart.GetProductById(0001).GetProduct().GetId());
         }
