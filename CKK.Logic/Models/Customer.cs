@@ -3,41 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CKK.Logic.Interfaces;
 
 namespace CKK.Logic.Models
 {
-    public class Customer
-    { 
-        private int id;
-        private string name;
+    public class Customer : Entity
+    {
         private string address;
 
         //GetId Method
         public int GetId()
         {
-            return id;
+            return base.Id;
         }
         public void SetId(int customerId)
         {
-            id = customerId;
+            base.Id = customerId;
         }
         //GetName Method
         public string GetName()
         {
-            return name;
+            return base.Name;
         }
         public void SetName(string customerName)
         {
-            name = customerName;
+            base.Name = customerName;
         }
-        //GetAddress Methos
-        public string GetAddress()
+        //Address Property
+        public string Address
         {
-            return address;
+            get
+            {
+                return address;
+            }
+            set
+            {
+                address = value;
+            }
         }
-        public void SetAddress(string customerAddress)
-        {
-            address = customerAddress;
-        }
-    }   
+    }
 }

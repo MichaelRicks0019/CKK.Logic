@@ -3,38 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CKK.Logic.Interfaces;
 
 namespace CKK.Logic.Models
 {
-     public class StoreItem
+     public class StoreItem : InventoryItem
     {
-        //Product : Product
-        private Product p;
-        private int quantity;
-
         //Get and Set for Quantity
         public int GetQuantity()
         {
-            return quantity;
+            return base.Quantity;
         }
         public void SetQuantity(int storeItemQuantity)
         {
-            quantity = storeItemQuantity;
+            base.Quantity = storeItemQuantity;
         }
         //Get and Set for product
         public void SetProduct(Product storeItemProduct)
         {
-            p = storeItemProduct;
+            base.Product = storeItemProduct;
         }
         public Product GetProduct()
         {
-            return p;
+            return base.Product;
         }
         //Constructor
         public StoreItem (Product storeItemProduct, int storeItemQuantity)
         {
-            quantity = storeItemQuantity;
-            p = storeItemProduct;
+            base.Quantity = storeItemQuantity;
+            base.Product = storeItemProduct;
         }
     }
 }

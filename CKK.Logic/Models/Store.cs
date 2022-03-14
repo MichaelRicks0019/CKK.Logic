@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CKK.Logic.Interfaces;
 
 namespace CKK.Logic.Models
 {
-    public class Store
+    public class Store : Entity
     {
-        private int id;
-        private string name;
         private List<StoreItem> items;
 
         //Constructor with initialized list
@@ -20,20 +19,20 @@ namespace CKK.Logic.Models
         //Get and Set id below
         public int GetId()
         {
-            return id;
+            return base.Id;
         }
         public void SetId(int storeId)
         {
-            id = storeId;
+            base.Id = storeId;
         }
         //Get and Set name below
         public string GetName()
         {
-            return name;
+            return base.Name;
         }
         public void SetName(string storeName)
         {
-            name = storeName;
+            base.Name = storeName;
         }
         //Add product to store
         public StoreItem AddStoreItem(Product storeProduct, int storeQuantity)
