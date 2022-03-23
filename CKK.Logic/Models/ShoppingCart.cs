@@ -88,7 +88,7 @@ namespace CKK.Logic.Models
 
             foreach (ShoppingCartItem item in products)
             {
-                if (item == null)
+                if (item.GetProduct() == null)
                 {
                     throw new ProductDoesNotExistException($"Product does not exist");
                 }

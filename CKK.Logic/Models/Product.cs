@@ -43,11 +43,18 @@ namespace CKK.Logic.Models
                 {
                     throw new ArgumentOutOfRangeException(nameof(price), price, $"Price must me more than 0");
                 }
-                else
-                {
                     price = value;
-                }
             }
+        }
+
+        public decimal SetPrice(decimal price)
+        {
+            if (price < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(price), price, $"Price must me more than 0");
+            }
+            this.price = price;
+            return price;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace CKK.Logic.Interfaces
 {
     public abstract class Entity
     {
-        public int id;
+        private int id;
         public string Name { get; set; }
 
         public int Id
@@ -30,6 +30,16 @@ namespace CKK.Logic.Interfaces
                     id = value;
                 }
             }
+        }
+
+        public int SetId(int id)
+        {
+            if (id < 0)
+            {
+                throw new InvalidIdException($"Id must be more than 0");
+            }
+            this.id = id;
+            return id;
         }
     }
 }

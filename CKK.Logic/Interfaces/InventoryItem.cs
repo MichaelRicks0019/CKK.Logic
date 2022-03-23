@@ -33,6 +33,16 @@ namespace CKK.Logic.Interfaces
             }
         }
 
+        public int SetQuantity(int quantity)
+        {
+            if (quantity < 0)
+            {
+                throw new InventoryItemStockTooLowException($"Quantity must be more than 0");
+            }
+            this.quantity = quantity;
+            return quantity;
+        }
+
 
         
     }
