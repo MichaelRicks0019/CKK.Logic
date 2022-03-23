@@ -108,15 +108,18 @@ namespace CKK.Logic.Models
             {
                 throw new InvalidIdException($"Id must be greater than 0");
             }
-            foreach (ShoppingCartItem item in products)
+            else
             {
-                if (item.GetProduct().GetId() == id)
+                foreach (ShoppingCartItem item in products)
                 {
-                    return item;
-                }
-                else
-                {
-                   
+                    if (item.GetProduct().GetId() == id)
+                    {
+                        return item;
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
             return null;
