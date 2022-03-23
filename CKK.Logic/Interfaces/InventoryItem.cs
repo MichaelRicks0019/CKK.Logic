@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Models;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Interfaces
 {
@@ -23,10 +24,12 @@ namespace CKK.Logic.Interfaces
             {
                 if (quantity < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(quantity), quantity,
-                        $"Quantity must be more than 0");
+                    throw new InventoryItemStockTooLowException($"Quantity must be more than 0");
                 }
-                quantity = value;
+                else
+                {
+                    quantity = value;
+                }
             }
         }
 

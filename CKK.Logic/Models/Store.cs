@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
@@ -40,7 +41,7 @@ namespace CKK.Logic.Models
             bool itemFound = false;
             if (storeQuantity <= 0)
             {
-                return null;
+                throw new InventoryItemStockTooLowException($"Quantity must be greater than 0 or equal to 0");
             }
             else if (storeQuantity > 0)
             {
@@ -69,9 +70,18 @@ namespace CKK.Logic.Models
         //Remove product from store
         public StoreItem RemoveStoreItem(int id, int storeQuantity)
         {
-            foreach (StoreItem item in items)
+            if (storeQuantity < 0)
             {
-                if (item.GetProduct().GetId() == id && item.GetQuantity() - storeQuantity <= 0)
+                throw new ArgumentOutOfRangeException(nameof(storeQuantity), storeQuantity, $"Quantity must be greater than 0");
+            }
+
+                foreach (StoreItem item in items)
+            {
+                if (item == null)
+                {
+                    throw new ProductDoesNotExistException($"Product does not exist");
+                }
+                else if (item.GetProduct().GetId() == id && item.GetQuantity() - storeQuantity <= 0)
                 {
                     item.SetQuantity(0);
                     return item;
@@ -87,6 +97,10 @@ namespace CKK.Logic.Models
         //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
         {
+            if (idFromStore < 0)
+            {
+                throw new InvalidIdException($"Id must be greater then 0");
+            }
             foreach(StoreItem item in items)
             {
                 if (item.GetProduct().GetId() == idFromStore)

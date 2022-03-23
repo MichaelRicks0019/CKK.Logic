@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
     public class ShoppingCart : IShoppingCart
     {
-
         private Customer customer;
         private List<ShoppingCartItem> products;
 
@@ -54,7 +54,7 @@ namespace CKK.Logic.Models
 
             if (quantity <= 0)
             {
-                return null;
+                throw new InventoryItemStockTooLowException($"Quantity must be more than 0");
             }
             else if (quantity > 0)
             {
@@ -81,9 +81,18 @@ namespace CKK.Logic.Models
         }
         public ShoppingCartItem RemoveProduct(int id, int quantity)
         {
+            if (quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(quantity), quantity, $"Quantity must be more than 0");
+            }
+
             foreach (ShoppingCartItem item in products)
             {
-                if (item.GetProduct().GetId() == id && item.GetQuantity() - quantity <= 0)
+                if (item == null)
+                {
+                    throw new ProductDoesNotExistException($"Product does not exist");
+                }
+                else if (item.GetProduct().GetId() == id && item.GetQuantity() - quantity <= 0)
                 {
                     item.SetQuantity(0);
                     products.Remove(item);
@@ -102,7 +111,11 @@ namespace CKK.Logic.Models
         {
            foreach (ShoppingCartItem item in products)
             {
-                if (item.GetProduct().GetId() == id)
+                if (id < 0)
+                {
+                    throw new InvalidIdException($"Id must be greater than 0");
+                }
+                else if (item.GetProduct().GetId() == id)
                 {
                     return item;
                 }

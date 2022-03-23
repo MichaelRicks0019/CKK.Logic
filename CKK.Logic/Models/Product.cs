@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
@@ -18,7 +19,7 @@ namespace CKK.Logic.Models
         }
         public void SetId(int productId)
         {
-            base.Id = productId;
+            base.Id = productId;       
         }
         //Get and Set Name
         public string GetName()
@@ -38,7 +39,14 @@ namespace CKK.Logic.Models
             }
             set
             {
-                price = value;
+                if (price < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(price), price, $"Price must me more than 0");
+                }
+                else
+                {
+                    price = value;
+                }
             }
         }
     }
