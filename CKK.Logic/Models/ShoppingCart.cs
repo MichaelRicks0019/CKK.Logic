@@ -50,29 +50,24 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
-            bool itemFound = false;
-
             if (quantity <= 0)
             {
                 throw new InventoryItemStockTooLowException($"Quantity must be more than 0");
             }
-            else if (quantity > 0)
+            var productToBeAdded = GetProductById(prod.GetId());
+
+            if (quantity > 0)
             {
-                foreach (ShoppingCartItem item in products)
-                {
-                    if (item.GetProduct() == prod)
-                    {
-                        itemFound = true;
-                        item.SetQuantity(item.GetQuantity() + quantity);
-                        return item;
-                    }
+                if(productToBeAdded != null)
+                { 
+                        productToBeAdded.SetQuantity(productToBeAdded.GetQuantity() + quantity);
                 }
-            }
-            if (itemFound == false)
-            {
+                else
+                {
                     ShoppingCartItem item = new ShoppingCartItem(prod, quantity);
                     products.Add(item);
-                    return item;
+                }
+                return productToBeAdded;
             }
             else
             {
@@ -86,38 +81,42 @@ namespace CKK.Logic.Models
                 throw new ArgumentOutOfRangeException(nameof(quantity), quantity, $"Quantity must be more than 0");
             }
 
-            foreach (ShoppingCartItem item in products)
+            var existingProduct = GetProductById(id);
+
+            if (existingProduct != null)
             {
-                if (item.GetProduct() == null)
+                if (existingProduct.GetQuantity() - quantity <= 0)
                 {
-                    throw new ProductDoesNotExistException($"Product does not exist");
+                    existingProduct.SetQuantity(0);
+                    products.Remove(existingProduct);
                 }
-                else if (item.GetProduct().GetId() == id && item.GetQuantity() - quantity <= 0)
+                else if (existingProduct.GetQuantity() - quantity > 0)
                 {
-                    item.SetQuantity(0);
-                    products.Remove(item);
-                    return item;
+                    existingProduct.SetQuantity(existingProduct.GetQuantity() - quantity);
                 }
-                else if (item.GetProduct().GetId() == id && item.GetQuantity() - quantity > 0)
-                {
-                    item.SetQuantity(item.GetQuantity() - quantity);
-                    return item;
-                }
+                return existingProduct;
             }
-            return null;
+            else
+            {
+                throw new ProductDoesNotExistException($"Product does not exist");
+            }
         }
 
         public ShoppingCartItem GetProductById(int id)
         {
-           foreach (ShoppingCartItem item in products)
+            if (id < 0)
             {
-                if (id < 0)
-                {
-                    throw new InvalidIdException($"Id must be greater than 0");
-                }
-                else if (item.GetProduct().GetId() == id)
+                throw new InvalidIdException($"Id must be greater than 0");
+            }
+            foreach (ShoppingCartItem item in products)
+            {
+                if (item.GetProduct().GetId() == id)
                 {
                     return item;
+                }
+                else
+                {
+                   
                 }
             }
             return null;

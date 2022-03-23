@@ -31,15 +31,5 @@ namespace CKK.Logic.Interfaces
                 }
             }
         }
-
-        public int SetId(int id)
-        {
-            if (id < 0)
-            {
-                throw new InvalidIdException($"Id must be more than 0");
-            }
-            this.id = id;
-            return id;
-        }
     }
 }

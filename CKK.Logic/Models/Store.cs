@@ -13,7 +13,7 @@ namespace CKK.Logic.Models
         private List<StoreItem> items;
 
         //Constructor with initialized list
-        public Store ()
+        public Store()
         {
             items = new List<StoreItem>();
         }
@@ -38,34 +38,30 @@ namespace CKK.Logic.Models
         //Add product to store
         public StoreItem AddStoreItem(Product storeProduct, int storeQuantity)
         {
-            bool itemFound = false;
             if (storeQuantity <= 0)
             {
                 throw new InventoryItemStockTooLowException($"Quantity must be greater than 0 or equal to 0");
             }
-            else if (storeQuantity > 0)
+
+            var existingProduct = FindStoreItemById(storeProduct.GetId());
+            if (storeQuantity > 0)
             {
-                foreach (StoreItem item in items)
+                if (existingProduct != null)
                 {
-                    if (item.GetProduct() == storeProduct)
-                    {
-                        itemFound = true;
-                        item.SetQuantity(item.GetQuantity() + storeQuantity);
-                        return item;
-                    }
+                    existingProduct.SetQuantity(existingProduct.GetQuantity() + storeQuantity);
                 }
-            }
-            if (itemFound == false)
-            {
-                StoreItem item = new StoreItem(storeProduct, storeQuantity);
-                items.Add(item);
-                return item;
+                else
+                {
+                    StoreItem item = new StoreItem(storeProduct, storeQuantity);
+                    items.Add(item); 
+                }
+                return existingProduct;
             }
             else
             {
                 return null;
             }
-            
+
         }
         //Remove product from store
         public StoreItem RemoveStoreItem(int id, int storeQuantity)
@@ -74,24 +70,24 @@ namespace CKK.Logic.Models
             {
                 throw new ArgumentOutOfRangeException(nameof(storeQuantity), storeQuantity, $"Quantity must be greater than 0");
             }
-                foreach (StoreItem item in items)
+            var existingProduct = FindStoreItemById(id);
+
+            if (existingProduct != null)
             {
-                if (item.GetProduct() == null)
+                if (existingProduct.GetQuantity() - storeQuantity <= 0)
                 {
-                    throw new ProductDoesNotExistException($"Product does not exist");
+                    existingProduct.SetQuantity(0);
                 }
-                else if (item.GetProduct().GetId() == id && item.GetQuantity() - storeQuantity <= 0)
+                else if(existingProduct.GetQuantity() - storeQuantity > 0)
                 {
-                    item.SetQuantity(0);
-                    return item;
+                    existingProduct.SetQuantity(existingProduct.GetQuantity() - storeQuantity);
                 }
-                else if (item.GetProduct().GetId() == id && item.GetQuantity() - storeQuantity > 0)
-                {
-                    item.SetQuantity(item.GetQuantity() - storeQuantity);
-                    return item;
-                }
+                return existingProduct;
             }
-            return null;
+            else
+            {
+                throw new ProductDoesNotExistException($"Product does not exist");
+            }
         }
         //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
