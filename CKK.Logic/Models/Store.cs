@@ -74,10 +74,9 @@ namespace CKK.Logic.Models
             {
                 throw new ArgumentOutOfRangeException(nameof(storeQuantity), storeQuantity, $"Quantity must be greater than 0");
             }
-
                 foreach (StoreItem item in items)
             {
-                if (item == null)
+                if (item is null)
                 {
                     throw new ProductDoesNotExistException($"Product does not exist");
                 }
