@@ -96,7 +96,7 @@ namespace CKK.Logic.Models
             {
                 throw new InvalidIdException($"Id must be greater then 0");
             }
-            else
+            else if (idFromStore >= 0)
             {
                 foreach (StoreItem item in items)
                 {
@@ -106,7 +106,10 @@ namespace CKK.Logic.Models
                     }
                 }
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
         //Returns store items
         public List<StoreItem> GetStoreItems()
