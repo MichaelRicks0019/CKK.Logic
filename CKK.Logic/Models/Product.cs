@@ -41,7 +41,7 @@ namespace CKK.Logic.Models
             {
                 if (price < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(price), price, $"Price must me more than 0");
+                    throw new ArgumentOutOfRangeException($"Price must me more than 0");
                 }
                 else
                 {
