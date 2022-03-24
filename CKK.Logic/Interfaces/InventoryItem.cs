@@ -22,7 +22,7 @@ namespace CKK.Logic.Interfaces
             }
             set
             {
-                if (quantity < 0)
+                if (value < 0)
                 {
                     throw new InventoryItemStockTooLowException($"Quantity must be more than 0");
                 }
