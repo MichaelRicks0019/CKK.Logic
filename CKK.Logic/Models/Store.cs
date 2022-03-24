@@ -44,22 +44,17 @@ namespace CKK.Logic.Models
             }
 
             var existingProduct = FindStoreItemById(storeProduct.GetId());
-            if (storeQuantity > 0)
+            
+            if (existingProduct != null)
             {
-                if (existingProduct != null)
-                {
-                    existingProduct.SetQuantity(existingProduct.GetQuantity() + storeQuantity);
-                }
-                else
-                {
-                    StoreItem item = new StoreItem(storeProduct, storeQuantity);
-                    items.Add(item); 
-                }
+                existingProduct.SetQuantity(existingProduct.GetQuantity() + storeQuantity);
                 return existingProduct;
             }
             else
             {
-                return null;
+                StoreItem item = new StoreItem(storeProduct, storeQuantity);
+                items.Add(item);
+                return item;
             }
 
         }
@@ -92,24 +87,18 @@ namespace CKK.Logic.Models
         //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
         {
-            if (idFromStore >= 0)
-            {
-                foreach (StoreItem item in items)
-                {
-                    if (item.GetProduct().GetId() == idFromStore)
-                    {
-                        return item;
-                    }
-                }
-            }
             if (idFromStore < 0)
             {
                 throw new InvalidIdException($"Id must be greater then 0");
             }
-            else
+            foreach (StoreItem item in items)
             {
-                return null;
+                if (item.GetProduct().GetId() == idFromStore)
+                {
+                    return item;
+                }
             }
+           return null;
         }
         //Returns store items
         public List<StoreItem> GetStoreItems()
