@@ -104,11 +104,7 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem GetProductById(int id)
         {
-            if (id < 0)
-            {
-                throw new InvalidIdException($"Id must be greater than 0");
-            }
-            else
+            if (id >= 0)
             {
                 foreach (ShoppingCartItem item in products)
                 {
@@ -116,13 +112,16 @@ namespace CKK.Logic.Models
                     {
                         return item;
                     }
-                    else
-                    {
-
-                    }
                 }
             }
-            return null;
+            if (id < 0)
+            {
+                throw new InvalidIdException($"Id must be greater than 0");
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public decimal GetTotal()

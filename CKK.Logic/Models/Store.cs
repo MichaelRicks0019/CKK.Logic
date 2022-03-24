@@ -92,11 +92,7 @@ namespace CKK.Logic.Models
         //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
         {
-            if (idFromStore < 0)
-            {
-                throw new InvalidIdException($"Id must be greater then 0");
-            }
-            else if (idFromStore >= 0)
+            if (idFromStore >= 0)
             {
                 foreach (StoreItem item in items)
                 {
@@ -105,6 +101,10 @@ namespace CKK.Logic.Models
                         return item;
                     }
                 }
+            }
+            if (idFromStore < 0)
+            {
+                throw new InvalidIdException($"Id must be greater then 0");
             }
             else
             {
