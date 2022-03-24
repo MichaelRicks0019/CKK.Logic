@@ -22,7 +22,7 @@ namespace ModelsTest
             Customer jerry = new Customer();
             jerry.SetId(1234);
             jerry.SetName("Jerry");
-            jerry.SetAddress("5642 White Boy St, UT 84404");
+            jerry.Address ="5642 White Boy St, UT 84404";
 
             Store theJerkyStore = new Store();
             theJerkyStore.SetId(4422);
