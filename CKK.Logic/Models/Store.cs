@@ -11,6 +11,8 @@ namespace CKK.Logic.Models
     public class Store : Entity, IStore
     {
         private List<StoreItem> items;
+        int[] idValues = Enumerable.Range(1000, 9999).ToArray();
+        int idValuesCounter = 0;
 
         //Constructor with initialized list
         public Store()
@@ -48,6 +50,11 @@ namespace CKK.Logic.Models
             if (existingProduct != null)
             {
                 existingProduct.SetQuantity(existingProduct.GetQuantity() + storeQuantity);
+                if (existingProduct.GetProduct().GetId() == 0)
+                {
+                    existingProduct.GetProduct().SetId(idValues[idValuesCounter]);
+                    idValuesCounter++;
+                }
                 return existingProduct;
             }
             else
@@ -84,6 +91,29 @@ namespace CKK.Logic.Models
                 throw new ProductDoesNotExistException($"Product does not exist");
             }
         }
+
+        //Completely deletes the product
+        public StoreItem DeleteStoreItem(int id)
+        {
+            
+            if (id < 0)
+            {
+               throw new ArgumentOutOfRangeException(nameof(id), id, $"Id number must be greater than 0");
+            }
+            var existingProduct = FindStoreItemById(id);
+
+             if (existingProduct != null)
+             {
+                items.Remove(existingProduct);
+             }
+             else
+             {
+                throw new ProductDoesNotExistException($"Product does not exist");
+             }
+            return existingProduct;
+            
+        }
+
         //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
         {
