@@ -36,5 +36,11 @@ namespace CoreysKnickKnacksWPFForm
             _Items.Clear();
             foreach (StoreItem si in new ObservableCollection<StoreItem>(_Store.GetStoreItems())) _Items.Add(si);
         }
+
+        private void MainPageAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            Page1 AddItemPage = new Page1();
+            this.Content = AddItemPage;
+        }
     }
 }
