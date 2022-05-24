@@ -40,7 +40,8 @@ namespace CoreysKnickKnacksWPFForm
         private void MainPageAddItem_Click(object sender, RoutedEventArgs e)
         {
             Page1 AddItemPage = new Page1();
-            this.Content = AddItemPage;
+            mainFrame.Content = AddItemPage;
+            
         }
     }
 }

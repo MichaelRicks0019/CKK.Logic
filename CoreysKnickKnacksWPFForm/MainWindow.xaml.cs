@@ -28,6 +28,7 @@ namespace CoreysKnickKnacksWPFForm
 
         public MainWindow(Store store)
         {
+          
         }
 
         public MainWindow()
@@ -41,6 +42,7 @@ namespace CoreysKnickKnacksWPFForm
             Window1 inven = new Window1(tp);
             inven.Show();
             this.Close();
+           
         }
     }
 }
