@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using CKK.Logic.Models;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Exceptions;
+using CKK.Logic;
 using System.Collections.ObjectModel;
 
 namespace CoreysKnickKnacksWPFForm
@@ -24,29 +25,22 @@ namespace CoreysKnickKnacksWPFForm
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IStore _Store;
-
-        public ObservableCollection<StoreItem> _Items { get; private set; }
 
         public MainWindow(Store store)
         {
-            _Store = store;
-            InitializeComponent();
-            _Items = new ObservableCollection<StoreItem>();
-            lbInventoryList.ItemsSource = _Items;
-            RefreshList();
-
-
         }
 
-        private void RefreshList()
-        {
-            _Items.Clear();
-            foreach (StoreItem si in new ObservableCollection<StoreItem>(_Store.GetStoreItems())) _Items.Add(si);
-        }
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void loginButtonMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            Store tp = (Store)Application.Current.FindResource("globStore");
+            Window1 inven = new Window1(tp);
+            inven.Show();
+            this.Close();
         }
     }
 }

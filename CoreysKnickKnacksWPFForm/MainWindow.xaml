@@ -6,8 +6,24 @@
         xmlns:local="clr-namespace:CoreysKnickKnacksWPFForm"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
-        <ListBox x:Name="lbInventoryList"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="loginButtonMainWindow" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Grid.Column="2" Grid.Row="2" MinWidth="100" Click="loginButtonMainWindow_Click"/>
+
 
     </Grid>
 </Window>
