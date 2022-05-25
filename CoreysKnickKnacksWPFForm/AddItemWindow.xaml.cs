@@ -34,6 +34,7 @@ namespace CoreysKnickKnacksWPFForm
             product.SetName(this.nameTextBox.Text);
             product.SetPrice(price);
             Item = new StoreItem(product, quantity);
+            DialogResult = true;
             Close();
 
         }

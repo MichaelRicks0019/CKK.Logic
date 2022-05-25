@@ -28,7 +28,7 @@
         <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
             <Button x:Name="addItemButton" Content="Add Item" Margin="0,0,4,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" AutomationProperties.Name="addItemButton" Click="MainPageAddItem_Click" 
                  />
-            <Button x:Name="removeAllItems" Content="Remove Item" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="0,0,4,0" 
+            <Button x:Name="removeAllItems" Content="Remove Item" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="0,0,4,0" Click="removeAllItems_Click" 
                 />
             <Button x:Name="viewAllItems" Content="View All Items" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" 
                 />

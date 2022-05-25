@@ -33,18 +33,6 @@ namespace CoreysKnickKnacksWPFForm
             
         }
 
-        public Window1()
-        {
-        }
-
-        public void AddItem(Product product, int quantity)
-        {
-            //launch new item from here
-            //use new item form instance to get info from other form
-            
-            
-            _Store.AddStoreItem(pg1.Item.Product, pg1.Item.Quantity);
-        }
         private void RefreshList()
         {
             _Items.Clear();
@@ -54,14 +42,24 @@ namespace CoreysKnickKnacksWPFForm
         private void MainPageAddItem_Click(object sender, RoutedEventArgs e)
         {
             AddItemWindow addItemWindow = new AddItemWindow();
-            mainFrame.Content = addItemWindow;
+            mainFrame.Navigate(addItemWindow.ShowDialog());
 
-            if (DialogResult == true)
+            if (addItemWindow.DialogResult == true)
             {
                 _Store.AddStoreItem(addItemWindow.Item.Product, addItemWindow.Item.Quantity);
                 RefreshList();
             }
 
+        }
+
+        private void removeAllItems_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveItem removeItemWindow = new RemoveItem();
+            mainFrame.Navigate(removeItemWindow.ShowDialog());
+            foreach (StoreItem si in _Items)
+            {
+                removeItemWindow.removeItemComboBox.Items.Add(si);
+            }
         }
     }
 }
