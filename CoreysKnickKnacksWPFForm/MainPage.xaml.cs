@@ -25,12 +25,26 @@ namespace CoreysKnickKnacksWPFForm
         public Window1(Store store)
         {
             InitializeComponent();
+            //_Store = store;
             _Store = store;
             _Items = new ObservableCollection<StoreItem>();
             lbInventoryList.ItemsSource = _Items;
             RefreshList();
+            
         }
 
+        public Window1()
+        {
+        }
+
+        public void AddItem(Product product, int quantity)
+        {
+            //launch new item from here
+            //use new item form instance to get info from other form
+            
+            
+            _Store.AddStoreItem(pg1.Item.Product, pg1.Item.Quantity);
+        }
         private void RefreshList()
         {
             _Items.Clear();
@@ -39,9 +53,15 @@ namespace CoreysKnickKnacksWPFForm
 
         private void MainPageAddItem_Click(object sender, RoutedEventArgs e)
         {
-            Page1 AddItemPage = new Page1();
-            mainFrame.Content = AddItemPage;
-            
+            AddItemWindow addItemWindow = new AddItemWindow();
+            mainFrame.Content = addItemWindow;
+
+            if (DialogResult == true)
+            {
+                _Store.AddStoreItem(addItemWindow.Item.Product, addItemWindow.Item.Quantity);
+                RefreshList();
+            }
+
         }
     }
 }

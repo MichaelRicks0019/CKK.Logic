@@ -25,6 +25,7 @@ namespace CoreysKnickKnacksWPFForm
     /// </summary>
     public partial class MainWindow : Window
     {
+        static Store coreysKnickKnacks = new Store();
 
         public MainWindow(Store store)
         {
@@ -34,6 +35,7 @@ namespace CoreysKnickKnacksWPFForm
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void loginButtonMainWindow_Click(object sender, RoutedEventArgs e)

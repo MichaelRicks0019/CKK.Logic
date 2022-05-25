@@ -10,18 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CKK.Logic.Exceptions;
 using CKK.Logic.Models;
 using CKK.Logic.Interfaces;
-using CKK.Logic.Exceptions;
 
 namespace CoreysKnickKnacksWPFForm
 {
-   
-    public partial class Page1 : Page
+    public partial class AddItemWindow : Window
     {
-        public Page1()
+
+        public StoreItem Item { get; set; }
+        public AddItemWindow()
         {
             InitializeComponent();
         }
@@ -33,7 +33,14 @@ namespace CoreysKnickKnacksWPFForm
             int quantity = int.Parse(quantityTextBox.Text);
             product.SetName(this.nameTextBox.Text);
             product.SetPrice(price);
-            StoreItem item = new StoreItem(product, quantity);
+            Item = new StoreItem(product, quantity);
+            Close();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
