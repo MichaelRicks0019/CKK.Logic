@@ -11,24 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CKK.Logic.Interfaces;
+using CKK.Logic.Models;
+using CKK.Logic.Exceptions;
 
 namespace CoreysKnickKnacksWPFForm
 {
     /// <summary>
-    /// Interaction logic for RemoveItem.xaml
+    /// Interaction logic for ViewAllItemsWindow.xaml
     /// </summary>
-    public partial class RemoveItem : Window
+    public partial class ViewAllItemsWindow : Window
     {
-        public ComboBox removeItemComboBoxPH { get; set; }
-        public RemoveItem()
+        public ViewAllItemsWindow()
         {
             InitializeComponent();
-        }
-
-        public ComboBox CombineComboBox()
-        {
-            removeItemComboBoxPH = removeItemComboBox;
-            return removeItemComboBoxPH;
         }
     }
 }

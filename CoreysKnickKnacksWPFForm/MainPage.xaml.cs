@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
+using CKK.Logic.Exceptions;
 
 namespace CoreysKnickKnacksWPFForm
 {
@@ -55,11 +56,22 @@ namespace CoreysKnickKnacksWPFForm
         private void removeAllItems_Click(object sender, RoutedEventArgs e)
         {
             RemoveItem removeItemWindow = new RemoveItem();
+            removeItemWindow.removeItemComboBox.ItemsSource = _Items;
             mainFrame.Navigate(removeItemWindow.ShowDialog());
-            foreach (StoreItem si in _Items)
+
+            if(removeItemWindow.DialogResult == true)
             {
-                removeItemWindow.removeItemComboBox.Items.Add(si);
+                _Store.RemoveStoreItem(removeItemWindow.IdPH, removeItemWindow.Quantity);
+                RefreshList();
             }
+    
+        }
+
+        private void viewAllItems_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
+            // COMBOBOXGOESHERE viewAllItemsWindow.
+            mainFrame.Navigate(viewAllItemsWindow.ShowDialog());
         }
     }
 }
