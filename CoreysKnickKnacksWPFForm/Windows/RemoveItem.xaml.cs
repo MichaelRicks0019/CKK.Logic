@@ -46,6 +46,9 @@ namespace CoreysKnickKnacksWPFForm
 
         }
 
-       
+        private void cancelRemoveItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

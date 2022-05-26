@@ -70,7 +70,7 @@ namespace CoreysKnickKnacksWPFForm
         private void viewAllItems_Click(object sender, RoutedEventArgs e)
         {
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
-            // COMBOBOXGOESHERE viewAllItemsWindow.
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = _Items;
             mainFrame.Navigate(viewAllItemsWindow.ShowDialog());
         }
     }
