@@ -4,41 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Persistance.Interfaces;
+using CKK.Logic.Models;
 using CKK.Logic.Exceptions;
+using CKK.Persistance;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
-namespace CKK.Logic.Models
+namespace CKK.Persistance.Models
 {
-    public class Store : Entity, IStore
+    public class FileStore : IStore, ISavable, ILoadable
     {
-        private List<StoreItem> items;
+        private List<StoreItem> items = new List<StoreItem>();
+        public readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
         int[] idValues = Enumerable.Range(1000, 9999).ToArray();
         int idValuesCounter = 0;
-
-        //Constructor with initialized list
-        public Store()
+        
+        public FileStore()
         {
-            items = new List<StoreItem>();
-        }
-        //Get and Set id below
-        public int GetId()
-        {
-            return base.Id;
-        }
-        public void SetId(int storeId)
-        {
-            base.Id = storeId;
-        }
-        //Get and Set name below
-        public string GetName()
-        {
-            return base.Name;
-        }
-        public void SetName(string storeName)
-        {
-            base.Name = storeName;
+            CreatePath();
         }
 
-        //Add product to store
         public StoreItem AddStoreItem(Product storeProduct, int storeQuantity)
         {
             if (storeQuantity <= 0)
@@ -47,7 +34,7 @@ namespace CKK.Logic.Models
             }
 
             var existingProduct = FindStoreItemById(storeProduct.GetId());
-            
+
             if (existingProduct != null)
             {
                 existingProduct.SetQuantity(existingProduct.GetQuantity() + storeQuantity);
@@ -67,7 +54,6 @@ namespace CKK.Logic.Models
             }
         }
 
-        //Remove product from store
         public StoreItem RemoveStoreItem(int id, int storeQuantity)
         {
             if (storeQuantity < 0)
@@ -82,7 +68,7 @@ namespace CKK.Logic.Models
                 {
                     existingProduct.SetQuantity(0);
                 }
-                else if(existingProduct.GetQuantity() - storeQuantity > 0)
+                else if (existingProduct.GetQuantity() - storeQuantity > 0)
                 {
                     existingProduct.SetQuantity(existingProduct.GetQuantity() - storeQuantity);
                 }
@@ -94,29 +80,27 @@ namespace CKK.Logic.Models
             }
         }
 
-        //Completely deletes the product
         public StoreItem DeleteStoreItem(int id)
         {
-            
+
             if (id < 0)
             {
-               throw new ArgumentOutOfRangeException(nameof(id), id, $"Id number must be greater than 0");
+                throw new ArgumentOutOfRangeException(nameof(id), id, $"Id number must be greater than 0");
             }
             var existingProduct = FindStoreItemById(id);
 
-             if (existingProduct != null)
-             {
+            if (existingProduct != null)
+            {
                 items.Remove(existingProduct);
-             }
-             else
-             {
+            }
+            else
+            {
                 throw new ProductDoesNotExistException($"Product does not exist");
-             }
+            }
             return existingProduct;
-            
+
         }
 
-        //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
         {
             if (idFromStore < 0)
@@ -130,15 +114,47 @@ namespace CKK.Logic.Models
                     return item;
                 }
             }
-           return null;
+            return null;
         }
 
-        //Returns store items
         public List<StoreItem> GetStoreItems()
         {
             return items;
         }
 
 
+        //Saves File to C:\Users\<username>\Documents\Persistance\StoreItems.dat
+        public void Save()
+        {
+            FileStream fsItems = new FileStream(filePath, FileMode.Open, FileAccess.Write);
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(fsItems, items);
+        }
+
+        //Loads File from C:\Users\<username>\Documents\Persistance\StoreItems.dat
+        public void Load()
+        {
+            FileStream fsItems = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            BinaryFormatter bf = new BinaryFormatter();
+            items = (List<StoreItem>)bf.Deserialize(fsItems);
+        }
+
+        private void CreatePath()
+        {
+            if (Directory.Exists(filePath))
+            {
+                throw new Exception("File already Exists");
+            }
+            else
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            
+        }
+
+        public void SetItems(List<StoreItem> items)
+        {
+            this.items = items;
+        }
     }
 }

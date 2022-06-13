@@ -8,6 +8,7 @@ using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Interfaces
 {
+    [Serializable]
     public abstract class InventoryItem
     {
         //Inventory is base class for ShoppingCartItem and StoreItem

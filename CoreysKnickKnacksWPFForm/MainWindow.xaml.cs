@@ -17,6 +17,9 @@ using CKK.Logic.Interfaces;
 using CKK.Logic.Exceptions;
 using CKK.Logic;
 using System.Collections.ObjectModel;
+using CKK.Persistance.Interfaces;
+using CKK.Persistance.Models;
+
 
 namespace CoreysKnickKnacksWPFForm
 {
@@ -25,7 +28,7 @@ namespace CoreysKnickKnacksWPFForm
     /// </summary>
     public partial class MainWindow : Window
     {
-        static Store coreysKnickKnacks = new Store();
+        public static FileStore coreysKnickKnacks = new FileStore();
 
         public MainWindow(Store store)
         {
@@ -40,7 +43,7 @@ namespace CoreysKnickKnacksWPFForm
 
         private void loginButtonMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            Store tp = (Store)Application.Current.FindResource("globStore");
+            FileStore tp = (FileStore)Application.Current.FindResource("globStore");
             Window1 inven = new Window1(tp);
             inven.Show();
             this.Close();

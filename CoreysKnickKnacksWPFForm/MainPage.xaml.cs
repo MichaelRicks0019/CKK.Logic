@@ -15,15 +15,17 @@ using System.Windows.Shapes;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
 using CKK.Logic.Exceptions;
+using CKK.Persistance.Interfaces;
+using CKK.Persistance.Models;
 
 namespace CoreysKnickKnacksWPFForm
 {
     
     public partial class Window1 : Window
     {
-    private IStore _Store;
+    private FileStore _Store;
     public ObservableCollection<StoreItem> _Items { get; private set; }
-        public Window1(Store store)
+        public Window1(FileStore store)
         {
             InitializeComponent();
             //_Store = store;
@@ -72,6 +74,11 @@ namespace CoreysKnickKnacksWPFForm
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = _Items;
             mainFrame.Navigate(viewAllItemsWindow.ShowDialog());
+        }
+
+        private void saveItems_Click(object sender, RoutedEventArgs e)
+        {
+            _Store.Save();
         }
     }
 }

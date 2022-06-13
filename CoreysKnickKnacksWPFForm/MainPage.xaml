@@ -25,14 +25,14 @@
         <ListBox x:Name="lbInventoryList" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="200" Height="100" Grid.RowSpan="2"/>
 
         <TextBlock x:Name="mainPageTitle" Text="Corey's  Knick  Knacks" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" FontFamily="Blackadder ITC" Margin="0,15,0,0" />
-        <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
-            <Button x:Name="addItemButton" Content="Add Item" Margin="0,0,4,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" AutomationProperties.Name="addItemButton" Click="MainPageAddItem_Click" 
-                 />
-            <Button x:Name="removeAllItems" Content="Remove Item" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="0,0,4,0" Click="removeAllItems_Click" 
-                />
-            <Button x:Name="viewAllItems" Content="View All Items" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="viewAllItems_Click" 
-                />
-
+        <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="1" Grid.Column="1" Grid.Row="1">
+            <Button x:Name="addItemButton" Content="Add Item" Margin="0,0,4,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" AutomationProperties.Name="addItemButton" Click="MainPageAddItem_Click" />
+            <Button x:Name="removeAllItems" Content="Remove Item" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Margin="0,0,4,0" Click="removeAllItems_Click"/>
+            <Button x:Name="viewAllItems" Content="View All Items" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="viewAllItems_Click"/>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Grid.RowSpan="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" Margin="0,6,0,0">
+            <Button x:Name="saveItemsButton" Content="Save Items" Width="75" Height="35" Click="saveItems_Click"/>
+            <Button x:Name="loadItemsButton" Content="Load Items" Width="75" Height="35"/>
         </StackPanel>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Visible" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4" ScrollViewer.CanContentScroll="True" />
 
