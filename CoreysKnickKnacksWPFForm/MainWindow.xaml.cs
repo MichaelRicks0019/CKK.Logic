@@ -28,7 +28,7 @@ namespace CoreysKnickKnacksWPFForm
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static FileStore coreysKnickKnacks = new FileStore();
+        public static Store coreysKnickKnacks = new Store();
 
         public MainWindow(Store store)
         {
@@ -43,7 +43,7 @@ namespace CoreysKnickKnacksWPFForm
 
         private void loginButtonMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            FileStore tp = (FileStore)Application.Current.FindResource("globStore");
+            Store tp = (Store)Application.Current.FindResource("globStore");
             Window1 inven = new Window1(tp);
             inven.Show();
             this.Close();

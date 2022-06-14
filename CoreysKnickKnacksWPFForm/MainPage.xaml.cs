@@ -17,15 +17,19 @@ using CKK.Logic.Models;
 using CKK.Logic.Exceptions;
 using CKK.Persistance.Interfaces;
 using CKK.Persistance.Models;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using Microsoft.Win32;
 
 namespace CoreysKnickKnacksWPFForm
 {
     
     public partial class Window1 : Window
     {
-    private FileStore _Store;
+    private IStore _Store;
     public ObservableCollection<StoreItem> _Items { get; private set; }
-        public Window1(FileStore store)
+        public Window1(Store store)
         {
             InitializeComponent();
             //_Store = store;
@@ -55,7 +59,7 @@ namespace CoreysKnickKnacksWPFForm
 
         }
 
-        private void removeAllItems_Click(object sender, RoutedEventArgs e)
+        private void RemoveAllItems_Click(object sender, RoutedEventArgs e)
         {
             RemoveItem removeItemWindow = new RemoveItem();
             removeItemWindow.removeItemComboBox.ItemsSource = _Items;
@@ -69,16 +73,35 @@ namespace CoreysKnickKnacksWPFForm
     
         }
 
-        private void viewAllItems_Click(object sender, RoutedEventArgs e)
+        private void ViewAllItems_Click(object sender, RoutedEventArgs e)
         {
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = _Items;
             mainFrame.Navigate(viewAllItemsWindow.ShowDialog());
         }
 
-        private void saveItems_Click(object sender, RoutedEventArgs e)
+        private void SaveItems_Click(object sender, RoutedEventArgs e)
         {
-            _Store.Save();
+            FileStore fs = new FileStore();
+            foreach(StoreItem si in _Items)
+            {
+                fs.AddStoreItem(si.GetProduct(), si.GetQuantity());
+            }
+            fs.Save();
+            //Random beep for the fun of it
+            Console.Beep();
+        }
+
+        private void LoadItems_CLick(object sender, RoutedEventArgs e)
+        {
+            FileStore fs = new FileStore();
+            fs.Load();
+            _Items.Clear();
+            foreach(StoreItem si in fs.GetStoreItems())
+            {
+                _Items.Add(si);
+            }
+            
         }
     }
 }

@@ -12,6 +12,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 
+
 namespace CKK.Persistance.Models
 {
     public class FileStore : IStore, ISavable, ILoadable
@@ -143,7 +144,7 @@ namespace CKK.Persistance.Models
         {
             if (Directory.Exists(filePath))
             {
-                throw new Exception("File already Exists");
+                
             }
             else
             {
@@ -152,9 +153,5 @@ namespace CKK.Persistance.Models
             
         }
 
-        public void SetItems(List<StoreItem> items)
-        {
-            this.items = items;
-        }
     }
 }
