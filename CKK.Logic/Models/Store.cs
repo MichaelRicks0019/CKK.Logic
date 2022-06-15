@@ -62,6 +62,7 @@ namespace CKK.Logic.Models
             {
                 StoreItem item = new StoreItem(storeProduct, storeQuantity);
                 item.Product.SetId(idValues[idValuesCounter]);
+                idValuesCounter++;
                 items.Add(item);
                 return item;
             }

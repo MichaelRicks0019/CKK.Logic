@@ -19,9 +19,11 @@ namespace CKK.Persistance.Models
     {
         private List<StoreItem> items = new List<StoreItem>();
         public readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
+        public readonly string filePathCreate = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance";
         int[] idValues = Enumerable.Range(1000, 9999).ToArray();
         int idValuesCounter = 0;
-        
+
+
         public FileStore()
         {
             CreatePath();
@@ -50,6 +52,7 @@ namespace CKK.Persistance.Models
             {
                 StoreItem item = new StoreItem(storeProduct, storeQuantity);
                 item.Product.SetId(idValues[idValuesCounter]);
+                idValuesCounter++;
                 items.Add(item);
                 return item;
             }
@@ -127,30 +130,29 @@ namespace CKK.Persistance.Models
         //Saves File to C:\Users\<username>\Documents\Persistance\StoreItems.dat
         public void Save()
         {
-            FileStream fsItems = new FileStream(filePath, FileMode.Open, FileAccess.Write);
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fsItems, items);
+            using (var fsItemsCreate = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fsItemsCreate, items);
+            }
+            
         }
 
         //Loads File from C:\Users\<username>\Documents\Persistance\StoreItems.dat
         public void Load()
         {
-            FileStream fsItems = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            BinaryFormatter bf = new BinaryFormatter();
-            items = (List<StoreItem>)bf.Deserialize(fsItems);
+            using (var fsItemsOpen = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                items = (List<StoreItem>)bf.Deserialize(fsItemsOpen);
+            }
+;     
+            
         }
 
         private void CreatePath()
         {
-            if (Directory.Exists(filePath))
-            {
-                
-            }
-            else
-            {
-                Directory.CreateDirectory(filePath);
-            }
-            
+            Directory.CreateDirectory(filePathCreate);  
         }
 
     }
