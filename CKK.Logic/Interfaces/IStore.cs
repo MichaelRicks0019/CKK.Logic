@@ -18,5 +18,12 @@ namespace CKK.Logic.Interfaces
         public StoreItem FindStoreItemById(int id);
 
         public List<StoreItem> GetStoreItems();
+
+        //Methods below Sort items
+        public List<StoreItem> GetAllProductsByName(string name);
+
+        public List<StoreItem> GetProductsByQuantity();
+
+        public List<StoreItem> GetProductsByPrice();
     }
 }

@@ -49,7 +49,7 @@ namespace CoreysKnickKnacksWPFForm
         private void MainPageAddItem_Click(object sender, RoutedEventArgs e)
         {
             AddItemWindow addItemWindow = new AddItemWindow();
-            mainFrame.Navigate(addItemWindow.ShowDialog());
+            addItemWindow.ShowDialog();
 
             if (addItemWindow.DialogResult == true)
             {
@@ -63,7 +63,7 @@ namespace CoreysKnickKnacksWPFForm
         {
             RemoveItem removeItemWindow = new RemoveItem();
             removeItemWindow.removeItemComboBox.ItemsSource = _Items;
-            mainFrame.Navigate(removeItemWindow.ShowDialog());
+            removeItemWindow.ShowDialog();
 
             if(removeItemWindow.DialogResult == true)
             {
@@ -77,7 +77,7 @@ namespace CoreysKnickKnacksWPFForm
         {
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = _Items;
-            mainFrame.Navigate(viewAllItemsWindow.ShowDialog());
+            viewAllItemsWindow.ShowDialog();
         }
 
         private void SaveItems_Click(object sender, RoutedEventArgs e)
@@ -102,6 +102,16 @@ namespace CoreysKnickKnacksWPFForm
                 _Items.Add(si);
             }
             
+        }
+
+        private void buttonGetProductByName_Click(object sender, RoutedEventArgs e)
+        {
+            List<StoreItem> tempList = new List<StoreItem>();
+           tempList = _Store.GetAllProductsByName(textBoxSorting.Text);
+
+            ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
+            viewAllItemsWindow.ShowDialog();
         }
     }
 }
