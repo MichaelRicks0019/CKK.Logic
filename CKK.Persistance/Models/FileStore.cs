@@ -126,6 +126,76 @@ namespace CKK.Persistance.Models
             return items;
         }
 
+        public List<StoreItem> GetAllProductsByName(string name)
+        {
+            List<StoreItem> list = new List<StoreItem>();
+            list = items;
+            int stringLength = name.Length;
+            string firstLetter = name.Substring(0, 1);
+
+            foreach (StoreItem item in list)
+            {
+                if (item.GetProduct().GetName() == name)
+                {
+                    list.Add(item);
+                }
+            }
+            if (list.Count() == 0)
+            {
+                throw new ProductDoesNotExistException($"The Product with the name {name} was not found");
+            }
+            return list;
+        }
+
+        public List<StoreItem> GetProductsByQuantity()
+        {
+            List<StoreItem> list = new List<StoreItem>();
+            list = items;
+            int count = list.Count;
+
+            for (int x = 0; x < count; x++)
+            {
+                for (int y = 0; y < count - 1; y++)
+                {
+                    int yCompare = y + 1;
+                    if (list[y].GetQuantity() > list[yCompare].GetQuantity())
+                    {
+                        Swap(list[y], list[yCompare]);
+                    }
+                }
+                count--;
+            }
+            return items;
+        }
+
+        public List<StoreItem> GetProductsByPrice()
+        {
+            List<StoreItem> list = new List<StoreItem>();
+            list = items;
+            int count = list.Count;
+
+            for (int x = 0; x < count; x++)
+            {
+                for (int y = 0; y < count - 1; y++)
+                {
+                    int yCompare = y + 1;
+                    if (list[y].GetProduct().Price > list[yCompare].GetProduct().Price)
+                    {
+                        Swap(list[y], list[yCompare]);
+                    }
+                }
+                count--;
+            }
+            return items;
+        }
+
+        public static void Swap(StoreItem value1, StoreItem value2)
+        {
+            StoreItem tempStorage = value1;
+            value1 = value2;
+            value2 = tempStorage;
+        }
+
 
         //Saves File to C:\Users\<username>\Documents\Persistance\StoreItems.dat
         public void Save()
