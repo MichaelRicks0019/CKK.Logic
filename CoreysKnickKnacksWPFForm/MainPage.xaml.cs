@@ -97,17 +97,42 @@ namespace CoreysKnickKnacksWPFForm
             FileStore fs = new FileStore();
             fs.Load();
             _Items.Clear();
+            foreach(StoreItem si in _Store.GetStoreItems())
+            {
+                si.SetQuantity(0);
+            }
+
             foreach(StoreItem si in fs.GetStoreItems())
             {
-                _Items.Add(si);
+                _Store.AddStoreItem(si.Product, si.GetQuantity());
             }
-            
+            RefreshList();
         }
 
         private void buttonGetProductByName_Click(object sender, RoutedEventArgs e)
         {
             List<StoreItem> tempList = new List<StoreItem>();
            tempList = _Store.GetAllProductsByName(textBoxSorting.Text);
+
+            ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
+            viewAllItemsWindow.ShowDialog();
+        }
+
+        private void buttonGetProductsByQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            List<StoreItem> tempList = new List<StoreItem>();
+            tempList = _Store.GetProductsByQuantity();
+
+            ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
+            viewAllItemsWindow.ShowDialog();
+        }
+
+        private void buttonGetProductsByPrice_Click(object sender, RoutedEventArgs e)
+        {
+            List<StoreItem> tempList = new List<StoreItem>();
+            tempList = _Store.GetProductsByPrice();
 
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;

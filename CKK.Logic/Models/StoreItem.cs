@@ -38,7 +38,7 @@ namespace CKK.Logic.Models
         public override string ToString()
         {
             StoreItem st = new StoreItem(GetProduct(), GetQuantity());
-            return $"ID:#{st.GetProduct().GetId()}# Product:<{st.GetProduct().GetName()}> Quantity:<{st.GetQuantity()}>";
+            return $"ID:#{st.GetProduct().GetId()}# Product:{st.GetProduct().GetName()} Quantity:{st.GetQuantity()}";
         }
     }
 }

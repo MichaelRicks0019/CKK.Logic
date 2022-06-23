@@ -47,7 +47,7 @@ namespace CKK.Logic.Models
             }
 
             var existingProduct = FindStoreItemById(storeProduct.GetId());
-            
+
             if (existingProduct != null)
             {
                 existingProduct.SetQuantity(existingProduct.GetQuantity() + storeQuantity);
@@ -83,7 +83,7 @@ namespace CKK.Logic.Models
                 {
                     existingProduct.SetQuantity(0);
                 }
-                else if(existingProduct.GetQuantity() - storeQuantity > 0)
+                else if (existingProduct.GetQuantity() - storeQuantity > 0)
                 {
                     existingProduct.SetQuantity(existingProduct.GetQuantity() - storeQuantity);
                 }
@@ -98,23 +98,23 @@ namespace CKK.Logic.Models
         //Completely deletes the product
         public StoreItem DeleteStoreItem(int id)
         {
-            
+
             if (id < 0)
             {
-               throw new ArgumentOutOfRangeException(nameof(id), id, $"Id number must be greater than 0");
+                throw new ArgumentOutOfRangeException(nameof(id), id, $"Id number must be greater than 0");
             }
             var existingProduct = FindStoreItemById(id);
 
-             if (existingProduct != null)
-             {
+            if (existingProduct != null)
+            {
                 items.Remove(existingProduct);
-             }
-             else
-             {
+            }
+            else
+            {
                 throw new ProductDoesNotExistException($"Product does not exist");
-             }
+            }
             return existingProduct;
-            
+
         }
 
         //Find an item using the id
@@ -131,7 +131,7 @@ namespace CKK.Logic.Models
                     return item;
                 }
             }
-           return null;
+            return null;
         }
 
         //Returns store items
@@ -143,73 +143,80 @@ namespace CKK.Logic.Models
         public List<StoreItem> GetAllProductsByName(string name)
         {
             List<StoreItem> list = new List<StoreItem>();
-            list = items;
             int stringLength = name.Length;
-            string firstLetter = name.Substring(0, 1);
 
-            foreach(StoreItem item in list)
+            foreach (StoreItem item in items)
             {
-                if (item.GetProduct().GetName() == name)
+                
+                if (item.GetProduct().GetName().Contains(name))
                 {
                     list.Add(item);
+
                 }
             }
             if (list.Count() == 0)
-            {
-                throw new ProductDoesNotExistException($"The Product with the name {name} was not found");
-            }
-            return list;
-        }
-
-        public List<StoreItem> GetProductsByQuantity()
-        {
-            List<StoreItem> list = new List<StoreItem>();
-            list = items;
-            int count = list.Count;
-
-            for (int x = 0; x < count; x++)
-            {
-                for (int y = 0; y < count - 1; y++)
                 {
-                    int yCompare = y + 1;
-                    if (list[y].GetQuantity() > list[yCompare].GetQuantity())
-                    {
-                        Swap(list[y], list[yCompare]);
-                    }
+                    throw new ProductDoesNotExistException($"The Product with the name {name} was not found");
                 }
-                count--;
-            }
-            return items;
+                return list;
         }
 
-        public List<StoreItem> GetProductsByPrice()
-        {
-            List<StoreItem> list = new List<StoreItem>();
-            list = items;
-            int count = list.Count;
-
-            for (int x = 0; x < count; x++)
+            public List<StoreItem> GetProductsByQuantity()
             {
-                for (int y = 0; y < count - 1; y++)
+                List<StoreItem> list = new List<StoreItem>();
+                list = items;
+                int count = list.Count;
+
+                for (int x = 0; x < count; x++)
                 {
-                    int yCompare = y + 1;
-                    if (list[y].GetProduct().Price > list[yCompare].GetProduct().Price)
+                    for (int y = 0; y < count - 1; y++)
                     {
-                        Swap(list[y], list[yCompare]);
+                        int yCompare = y + 1;
+                        if (list[y].GetQuantity() > list[yCompare].GetQuantity())
+                        {
+                            StoreItem tempStorage = list[y];
+                            list[y] = list[yCompare];
+                            list[yCompare] = tempStorage;
+                        }
                     }
+                    count--;
                 }
-                count--;
+                return items;
             }
-            return items;
-        }
 
-        public static void Swap(StoreItem value1, StoreItem value2)
-        {
-            StoreItem tempStorage = value1;
-            value1 = value2;
-            value2 = tempStorage;
-        }
+            public List<StoreItem> GetProductsByPrice()
+            {
+                List<StoreItem> list = new List<StoreItem>();
+                list = items;
+                int count = list.Count;
 
+                for (int x = 0; x < count; x++)
+                {
+                    for (int y = 0; y < count - 1; y++)
+                    {
+                        int yCompare = y + 1;
+                        if (list[y].GetProduct().Price > list[yCompare].GetProduct().Price)
+                        {
+                            StoreItem tempStorage = list[y];
+                            list[y] = list[yCompare];
+                            list[yCompare] = tempStorage;
+                    }
+                    }
+                    count--;
+                }
+                return items;
+            }
+
+        /*Couldnt get ref to work with objects so it wouldnt directly change
+         * 
+            public static void Swap(ref StoreItem value1, ref StoreItem value2)
+            {
+                StoreItem tempStorage = value1;
+                value1 = value2;
+                value2 = tempStorage;
+            }
+        */
+        
     }
 }
 

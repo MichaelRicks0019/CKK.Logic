@@ -39,8 +39,8 @@
             <Label Content="Sort Data" HorizontalAlignment="Center" Background="{x:Null}" Foreground="Black" />
             <TextBox x:Name="textBoxSorting" Height="26" Width="200" BorderBrush="Black" Margin="0,0,0,6" />
             <Button x:Name="buttonGetProductByName" Content="Get Product By Name" Width="140" Height="40" Click="buttonGetProductByName_Click"/>
-            <Button x:Name="buttonGetProductsByQuantity" Content="Get Products By Quantity" Width="140" Height="40" Margin="0,3,0,3"/>
-            <Button x:Name="buttonGetProductsByPrice" Content="Get Products By Price" Width="140" Height="40"/>
+            <Button x:Name="buttonGetProductsByQuantity" Content="Get Products By Quantity" Width="140" Height="40" Margin="0,3,0,3" Click="buttonGetProductsByQuantity_Click"/>
+            <Button x:Name="buttonGetProductsByPrice" Content="Get Products By Price" Width="140" Height="40" Click="buttonGetProductsByPrice_Click"/>
         </StackPanel>
 
 
