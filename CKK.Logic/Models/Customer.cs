@@ -8,6 +8,7 @@ using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
+    [Serializable]
     public class Customer : Entity
     {
         //Properties 

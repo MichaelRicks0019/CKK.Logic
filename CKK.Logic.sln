@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.Logic", "CKK.Logic\CKK.Logic.csproj", "{12529EEB-DF55-4FF7-B1E2-7662D6EAA163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsTest", "ModelsTest\ModelsTest.csproj", "{B14F5478-50AE-453A-85A9-8B85771E55C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelsTest", "ModelsTest\ModelsTest.csproj", "{B14F5478-50AE-453A-85A9-8B85771E55C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreysKnickKnacksWPFForm", "CoreysKnickKnacksWPFForm\CoreysKnickKnacksWPFForm.csproj", "{695BAB4A-F7A4-41C2-A076-B70F7741DA99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKK.Persistance", "CKK.Persistance\CKK.Persistance.csproj", "{3FAAE2A9-1594-45BE-AE70-775762E0F0DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{B14F5478-50AE-453A-85A9-8B85771E55C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B14F5478-50AE-453A-85A9-8B85771E55C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B14F5478-50AE-453A-85A9-8B85771E55C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{695BAB4A-F7A4-41C2-A076-B70F7741DA99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{695BAB4A-F7A4-41C2-A076-B70F7741DA99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{695BAB4A-F7A4-41C2-A076-B70F7741DA99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{695BAB4A-F7A4-41C2-A076-B70F7741DA99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FAAE2A9-1594-45BE-AE70-775762E0F0DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FAAE2A9-1594-45BE-AE70-775762E0F0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FAAE2A9-1594-45BE-AE70-775762E0F0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FAAE2A9-1594-45BE-AE70-775762E0F0DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

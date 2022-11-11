@@ -7,6 +7,7 @@ using CKK.Logic.Interfaces;
 
 namespace CKK.Logic.Models
 {
+    [Serializable]
      public class StoreItem : InventoryItem
     {
         //Get and Set for Quantity
@@ -32,6 +33,12 @@ namespace CKK.Logic.Models
         {
             base.Quantity = storeItemQuantity;
             base.Product = storeItemProduct;
+        }
+
+        public override string ToString()
+        {
+            StoreItem st = new StoreItem(GetProduct(), GetQuantity());
+            return $"ID:#{st.GetProduct().GetId()}# Product:{st.GetProduct().GetName()} Quantity:{st.GetQuantity()}";
         }
     }
 }

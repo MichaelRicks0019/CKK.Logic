@@ -4,41 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Persistance.Interfaces;
+using CKK.Logic.Models;
 using CKK.Logic.Exceptions;
+using CKK.Persistance;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
-namespace CKK.Logic.Models
+
+namespace CKK.Persistance.Models
 {
-    public class Store : Entity, IStore
+    public class FileStore : IStore, ISavable, ILoadable
     {
-        private List<StoreItem> items;
+        private List<StoreItem> items = new List<StoreItem>();
+        public readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
+        public readonly string filePathCreate = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance";
         int[] idValues = Enumerable.Range(1000, 9999).ToArray();
         int idValuesCounter = 0;
 
-        //Constructor with initialized list
-        public Store()
+
+        public FileStore()
         {
-            items = new List<StoreItem>();
-        }
-        //Get and Set id below
-        public int GetId()
-        {
-            return base.Id;
-        }
-        public void SetId(int storeId)
-        {
-            base.Id = storeId;
-        }
-        //Get and Set name below
-        public string GetName()
-        {
-            return base.Name;
-        }
-        public void SetName(string storeName)
-        {
-            base.Name = storeName;
+            CreatePath();
         }
 
-        //Add product to store
         public StoreItem AddStoreItem(Product storeProduct, int storeQuantity)
         {
             if (storeQuantity <= 0)
@@ -68,7 +58,6 @@ namespace CKK.Logic.Models
             }
         }
 
-        //Remove product from store
         public StoreItem RemoveStoreItem(int id, int storeQuantity)
         {
             if (storeQuantity < 0)
@@ -95,7 +84,6 @@ namespace CKK.Logic.Models
             }
         }
 
-        //Completely deletes the product
         public StoreItem DeleteStoreItem(int id)
         {
 
@@ -117,7 +105,6 @@ namespace CKK.Logic.Models
 
         }
 
-        //Find an item using the id
         public StoreItem FindStoreItemById(int idFromStore)
         {
             if (idFromStore < 0)
@@ -134,7 +121,6 @@ namespace CKK.Logic.Models
             return null;
         }
 
-        //Returns store items
         public List<StoreItem> GetStoreItems()
         {
             return items;
@@ -143,128 +129,101 @@ namespace CKK.Logic.Models
         public List<StoreItem> GetAllProductsByName(string name)
         {
             List<StoreItem> list = new List<StoreItem>();
+            list = items;
             int stringLength = name.Length;
+            string firstLetter = name.Substring(0, 1);
 
-            foreach (StoreItem item in items)
+            foreach (StoreItem item in list)
             {
-                
-                if (item.GetProduct().GetName().Contains(name))
+                if (item.GetProduct().GetName() == name)
                 {
                     list.Add(item);
-
                 }
             }
             if (list.Count() == 0)
-                {
-                    throw new ProductDoesNotExistException($"The Product with the name {name} was not found");
-                }
-                return list;
+            {
+                throw new ProductDoesNotExistException($"The Product with the name {name} was not found");
+            }
+            return list;
         }
 
-            public List<StoreItem> GetProductsByQuantity()
-            {
-                List<StoreItem> list = new List<StoreItem>();
-                list = items;
-                int count = list.Count;
+        public List<StoreItem> GetProductsByQuantity()
+        {
+            List<StoreItem> list = new List<StoreItem>();
+            list = items;
+            int count = list.Count;
 
-                for (int x = 0; x < count; x++)
+            for (int x = 0; x < count; x++)
+            {
+                for (int y = 0; y < count - 1; y++)
                 {
-                    for (int y = 0; y < count - 1; y++)
+                    int yCompare = y + 1;
+                    if (list[y].GetQuantity() > list[yCompare].GetQuantity())
                     {
-                        int yCompare = y + 1;
-                        if (list[y].GetQuantity() > list[yCompare].GetQuantity())
-                        {
-                            StoreItem tempStorage = list[y];
-                            list[y] = list[yCompare];
-                            list[yCompare] = tempStorage;
-                        }
+                        Swap(list[y], list[yCompare]);
                     }
-                    count--;
                 }
-                return items;
+                count--;
             }
+            return items;
+        }
 
-            public List<StoreItem> GetProductsByPrice()
+        public List<StoreItem> GetProductsByPrice()
+        {
+            List<StoreItem> list = new List<StoreItem>();
+            list = items;
+            int count = list.Count;
+
+            for (int x = 0; x < count; x++)
             {
-                List<StoreItem> list = new List<StoreItem>();
-                list = items;
-                int count = list.Count;
-
-                for (int x = 0; x < count; x++)
+                for (int y = 0; y < count - 1; y++)
                 {
-                    for (int y = 0; y < count - 1; y++)
+                    int yCompare = y + 1;
+                    if (list[y].GetProduct().Price > list[yCompare].GetProduct().Price)
                     {
-                        int yCompare = y + 1;
-                        if (list[y].GetProduct().Price > list[yCompare].GetProduct().Price)
-                        {
-                            StoreItem tempStorage = list[y];
-                            list[y] = list[yCompare];
-                            list[yCompare] = tempStorage;
+                        Swap(list[y], list[yCompare]);
                     }
-                    }
-                    count--;
                 }
-                return items;
+                count--;
             }
+            return items;
+        }
 
-        /*Couldnt get ref to work with objects so it wouldnt directly change
-         * 
-            public static void Swap(ref StoreItem value1, ref StoreItem value2)
+        public static void Swap(StoreItem value1, StoreItem value2)
+        {
+            StoreItem tempStorage = value1;
+            value1 = value2;
+            value2 = tempStorage;
+        }
+
+
+        //Saves File to C:\Users\<username>\Documents\Persistance\StoreItems.dat
+        public void Save()
+        {
+            using (var fsItemsCreate = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
-                StoreItem tempStorage = value1;
-                value1 = value2;
-                value2 = tempStorage;
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fsItemsCreate, items);
             }
-        */
-        
+            
+        }
+
+        //Loads File from C:\Users\<username>\Documents\Persistance\StoreItems.dat
+        public void Load()
+        {
+            using (var fsItemsOpen = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                items = (List<StoreItem>)bf.Deserialize(fsItemsOpen);
+            }
+;     
+            
+        }
+
+        private void CreatePath()
+        {
+            Directory.CreateDirectory(filePathCreate);  
+        }
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*  This was used for GetAllProductByName to get rest of items in alphabetical order....Its not completed. Use if all products are needed.
- *  
- *  foreach(StoreItem item in items)
-            {
-                if (item.GetProduct().GetName().Contains(firstLetter) == true && item.GetProduct().GetName() != name)
-                {
-                    list.Add(item);
-                }
-            }
-            for (int x = 0; x < items.Count; x++)
-            {
-                for (int y = 0; y < items.Count; y++)
-                {
-                    if (items.)
-                }
-            }
-*/
