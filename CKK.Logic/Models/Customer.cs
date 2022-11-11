@@ -10,7 +10,7 @@ namespace CKK.Logic.Models
 {
     public class Customer : Entity
     {
-        //Properties
+        //Properties 
         public string Address { get; set; }
         public int CustomerId { get; set; }
         public int ShoppingCartId { get; set; }
