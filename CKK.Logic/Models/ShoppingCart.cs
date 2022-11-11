@@ -10,42 +10,23 @@ namespace CKK.Logic.Models
 {
     public class ShoppingCart : IShoppingCart
     {
-        private Customer customer;
-        private List<ShoppingCartItem> products;
-
+        //Properties
+        public int ShoppingCartId { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
+        public List<ShoppingCartItem> ShoppingCartItems { get; set; } = new List<ShoppingCartItem>();
+       
+        //Constructor
         public ShoppingCart(Customer cust)
         {
-            products = new List<ShoppingCartItem>();
-            customer = cust;
+            ShoppingCartItems = new List<ShoppingCartItem>();
+            Customer = cust;
         }
-        //Products Property
-        public List<ShoppingCartItem> Products
-        {
-            get
-            {
-                return products;
-            }
-            set
-            {
-                products = value;
-            }
-        }
-        //Customer Property
-        public Customer Customer
-        {
-            get
-            {
-                return customer;
-            }
-            set
-            {
-                customer = value;
-            }
-        }
-
+        
+        //Methods
         public int GetCustomerId()
         {
-            return customer.GetId();
+            return Customer.GetId();
         }
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
@@ -65,7 +46,7 @@ namespace CKK.Logic.Models
             else
             {
                 ShoppingCartItem item = new ShoppingCartItem(prod, quantity);
-                products.Add(item);
+                ShoppingCartItems.Add(item);
                 return item;
             }
         }
@@ -83,7 +64,7 @@ namespace CKK.Logic.Models
                 if (existingProduct.GetQuantity() - quantity <= 0)
                 {
                     existingProduct.SetQuantity(0);
-                    products.Remove(existingProduct);
+                    ShoppingCartItems.Remove(existingProduct);
                 }
                 else if (existingProduct.GetQuantity() - quantity > 0)
                 {
@@ -104,7 +85,7 @@ namespace CKK.Logic.Models
                 throw new InvalidIdException($"Id must be greater than or equal to 0");
             }
 
-            foreach (ShoppingCartItem item in products)
+            foreach (ShoppingCartItem item in ShoppingCartItems)
             {
                 if (item.GetProduct().GetId() == id)
                 {
@@ -117,7 +98,7 @@ namespace CKK.Logic.Models
         public decimal GetTotal()
         {
             decimal total = 0m;
-            foreach (ShoppingCartItem item in products)
+            foreach (ShoppingCartItem item in ShoppingCartItems)
             {
                 total += item.GetTotal();
             }
@@ -126,7 +107,7 @@ namespace CKK.Logic.Models
 
         public List<ShoppingCartItem> GetProducts()
         {
-            return products;
+            return ShoppingCartItems;
         }
     }
 }
