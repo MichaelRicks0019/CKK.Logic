@@ -8,14 +8,11 @@ using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
-    [Serializable]
-    public class Customer : Entity
+    class Order
     {
-        //Properties 
-        public string Address { get; set; }
-        public int Id { get; set; }
+        public int OrderId { get; set; }
+        public string OrderNumber { get; set; }
+        public int CustomerId { get; set; }
         public int ShoppingCartId { get; set; }
-        public string Name { get; set; }
-        
     }
 }

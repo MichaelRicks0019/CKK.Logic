@@ -4,40 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
     [Serializable]
      public class ShoppingCartItem : InventoryItem
     {
-        //Get and Set for Quantity
-        public int GetQuantity()
-        {
-            return base.Quantity;
-        }
-        public void SetQuantity(int shoppingCartItemQuantity)
-        {
-            base.Quantity = shoppingCartItemQuantity;
-        }
-        //Get and Set for product
-        public void SetProduct(Product shoppingCartItemProduct)
-        {
-            base.Product = shoppingCartItemProduct;
-        }
-        public Product GetProduct()
-        {
-            return base.Product;
-        }
+        public Product Product { get; set; }
+        public int ShoppingCartId { get; set; }
+        public int CustomerId { get; set; }
+        public int ProductId { get; set; }
+        private int quantity { get; set; }
 
+        public int Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if(value >= 0)
+                {
+                    quantity = value;
+                }
+                else
+                {
+                    throw new InventoryItemStockTooLowException();
+                }
+            }
+        }
         public decimal GetTotal()
         {
-            return base.Product.Price * GetQuantity();
-        }
-        //Constructor
-        public ShoppingCartItem(Product shoppingCartItemProduct, int ShoppingCartItemQuantity)
-        {
-            base.Quantity = ShoppingCartItemQuantity;
-            base.Product = shoppingCartItemProduct;
+            return Product.Price * Quantity;
         }
     }
 }

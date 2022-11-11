@@ -9,56 +9,12 @@ using CKK.Logic.Exceptions;
 namespace CKK.Logic.Models
 {
     [Serializable]
-     public class Product : Entity
+    public class Product : Entity
     {
-        private decimal price;
-
-        //Get and set ID
-        public int GetId()
-        {
-            return base.Id;
-        }
-        public void SetId(int productId)
-        {
-            base.Id = productId;       
-        }
-        //Get and Set Name
-        public string GetName()
-        {
-            return base.Name;
-        }
-        public void SetName(string productName)
-        {
-            base.Name = productName;
-        }
-        //Get and Set Price
-        public decimal Price
-        {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(price), price, $"Price must me more than 0");
-                }
-                else
-                {
-                    price = value;
-                }
-            }
-        }
-
-        public decimal SetPrice(decimal price)
-        {
-            if (price < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(price), price, $"Price must me more than 0");
-            }
-            this.price = price;
-            return price;
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        private decimal price { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
     }
 }
