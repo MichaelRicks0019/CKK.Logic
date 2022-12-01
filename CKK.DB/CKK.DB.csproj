@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UOW\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CKK.Logic\CKK.Logic.csproj" />
   </ItemGroup>
 

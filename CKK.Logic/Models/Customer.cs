@@ -9,7 +9,7 @@ using CKK.Logic.Exceptions;
 namespace CKK.Logic.Models
 {
     [Serializable]
-    public class Customer : Entity
+    public class Customer
     {
         //Properties 
         public string Address { get; set; }

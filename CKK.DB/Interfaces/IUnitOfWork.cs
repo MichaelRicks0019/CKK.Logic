@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CKK.Logic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CKK.DB.Interfaces
 {
-    interface IUnitOfWork<T>
+    interface IUnitOfWork
     {
-        IProductRepository<T> Products { get; }
+        IProductRepository<Product> Products { get; }
 
-        IOrderRepository<T> Orders { get; }
+        IOrderRepository<Order> Orders { get; }
 
         IShoppingCartRepository ShoppingCarts { get; }
     }

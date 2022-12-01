@@ -8,7 +8,7 @@ using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
-    class Order
+    public class Order
     {
         public int OrderId { get; set; }
         public string OrderNumber { get; set; }
