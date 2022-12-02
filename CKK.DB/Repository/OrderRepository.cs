@@ -4,14 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.DB.Interfaces;
+using CKK.DB.UOW;
 
 namespace CKK.DB.Repository
 {
     class OrderRepository<Order> : IOrderRepository<Order>
     {
+        public IConnectionFactory conn;
+        public OrderRepository(IConnectionFactory Conn)
+        {
+            conn = Conn;
+        }
         public int Add(Order entity)
         {
-            throw new NotImplementedException();
+            using (conn.GetConnection)
+            {
+
+            }
         }
 
         public int Delete(int id)

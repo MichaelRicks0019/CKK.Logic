@@ -10,6 +10,11 @@ namespace CKK.DB.Repository
 {
     class ShoppingCartRepository : IShoppingCartRepository
     {
+        public IConnectionFactory conn;
+        public ShoppingCartRepository(IConnectionFactory Conn)
+        {
+            conn = Conn;
+        }
         public int Add(ShoppingCartItem entity)
         {
             throw new NotImplementedException();

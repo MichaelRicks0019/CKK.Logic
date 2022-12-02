@@ -27,7 +27,7 @@ namespace CKK.DB.UOW
                 var factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
                 var conn = factory.CreateConnection();
                 conn.ConnectionString = connectionString;
-                //conn.Open();
+                conn.Open();
                 return conn;
             }
         }

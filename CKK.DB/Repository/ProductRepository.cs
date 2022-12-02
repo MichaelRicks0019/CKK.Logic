@@ -10,10 +10,10 @@ namespace CKK.DB.Repository
 {
     class ProductRepository<Product> : IProductRepository<Product>
     {
-        public DatabaseConnectionFactory dbcf;
+        public IConnectionFactory conn;
         public ProductRepository(IConnectionFactory Conn) 
         {
-            dbcf = new DatabaseConnectionFactory();
+             conn = Conn;
         }
         public int Add(Product entity)
         {

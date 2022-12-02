@@ -11,11 +11,13 @@ namespace CKK.Logic.Models
     [Serializable]
     public class Customer
     {
-        //Properties 
-        public string Address { get; set; }
+        //Properties
+        
         public int Id { get; set; }
-        public int ShoppingCartId { get; set; }
         public string Name { get; set; }
+        public string Address { get; set; }
+        public int ShoppingCartId { get; set; }
+        
         
     }
 }

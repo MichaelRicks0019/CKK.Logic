@@ -7,7 +7,7 @@ using System.Data;
 
 namespace CKK.DB.Interfaces
 {
-    interface IConnectionFactory
+    public interface IConnectionFactory
     {
         IDbConnection GetConnection { get; }
     }

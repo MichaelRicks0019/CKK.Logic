@@ -13,8 +13,21 @@ namespace CKK.Logic.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        private decimal price { get; set; }
-        public decimal Price { get; set; }
+
+        private decimal price;
+        public decimal Price 
+        {   get 
+            {
+                return price;
+            } 
+            set 
+            {
+                if (value < 0)
+                {
+                    throw new Exception("Price cannot be less that zero");
+                }
+            } 
+        }
         public int Quantity { get; set; }
     }
 }
