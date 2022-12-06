@@ -1,6 +1,8 @@
 using System;
 using Xunit;
 using CKK.Logic.Models;
+using CKK.DB.UOW;
+using CKK.DB.Interfaces;
 
 namespace ModelsTest
 {
@@ -9,32 +11,12 @@ namespace ModelsTest
         [Fact]
         public void IfAddProductsTest()
         {
-            Product teriyakiJerky = new Product();
-            teriyakiJerky.SetId(0001);
-            teriyakiJerky.SetName("Teriyaki Beef Jerky");
-            teriyakiJerky.SetPrice(4.99m);
+            IConnectionFactory conn = new DatabaseConnectionFactory();
+            UnitOfWork uow = new UnitOfWork(conn);
 
-            Product bbqJerky = new Product();
-            bbqJerky.SetId(0002);
-            bbqJerky.SetName("BBQ Beef Jerky");
-            bbqJerky.SetPrice(4.99m);
+            Order od = new Order() { CustomerId = 1, OrderNumber = "af3ed", ShoppingCartId = 1, OrderId = 1 };
 
-            Customer jerry = new Customer();
-            jerry.SetId(1234);
-            jerry.SetName("Jerry");
-            jerry.Address ="5642 White Boy St, UT 84404";
-
-            Store theJerkyStore = new Store();
-            theJerkyStore.SetId(4422);
-            theJerkyStore.SetName("The Jerky Store \"Where we Jerk your Meat!\" ");
-            theJerkyStore.AddStoreItem(teriyakiJerky, 20);
-            theJerkyStore.AddStoreItem(bbqJerky, 9);
-
-            ShoppingCart jerrysShoppingCart = new ShoppingCart(jerry);
-            jerrysShoppingCart.AddProduct(theJerkyStore.FindStoreItemById(0001).GetProduct(), 3);
-            jerrysShoppingCart.AddProduct(theJerkyStore.FindStoreItemById(0002).GetProduct(), 2);
-
-            Assert.Equal(teriyakiJerky.GetId(), jerrysShoppingCart.GetProductById(0001).GetProduct().GetId());
+            uow.Orders.Add(od);
         }
     }
 }

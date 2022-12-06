@@ -17,7 +17,7 @@ namespace CKK.DB.UOW
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
 
-        private readonly string connectionString = "Data Source = localhost\\SQLEXPRESS01;Initial Catalog = StructuredProjectDB";
+        private readonly string connectionString = CnnVal("StructuredProjectDB");
 
         public IDbConnection GetConnection
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CKK.DB.Interfaces
 {
-    interface IProductRepository<Product> : IGenericRepository<Product>
+    public interface IProductRepository<Product> : IGenericRepository<Product> where Product : CKK.Logic.Models.Product
     {
         List<Product> GetByName(string name);
     }

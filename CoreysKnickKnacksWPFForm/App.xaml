@@ -5,7 +5,12 @@
              xmlns:Logic="clr-namespace:CKK.Logic.Models;assembly=CKK.Logic"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-      <Logic:Store x:Key="globStore"></Logic:Store>
+        <Logic:Store x:Key="globStore"></Logic:Store>
         
     </Application.Resources>
 </Application>
+<connectionStrings>
+    <add name="StructuredProjectDB" 
+connectionString="localhost\SQLEXPRESS01;Database=StructuredProjectDB;Trusted_Connection=True;"providerName="System.Data.SqlClient"/>
+</connectionStrings>
+
