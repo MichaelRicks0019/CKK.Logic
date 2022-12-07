@@ -27,7 +27,9 @@ namespace CoreysKnickKnacksWPFForm
     
     public partial class Window1 : Window
     {
-    private IStore _Store;
+        private IStore _Store;
+
+    /*
     public ObservableCollection<StoreItem> _Items { get; private set; }
         public Window1(Store store)
         {
@@ -138,5 +140,6 @@ namespace CoreysKnickKnacksWPFForm
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
             viewAllItemsWindow.ShowDialog();
         }
+    */
     }
 }

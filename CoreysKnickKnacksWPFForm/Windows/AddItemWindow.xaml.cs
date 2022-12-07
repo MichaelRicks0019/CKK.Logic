@@ -19,7 +19,7 @@ namespace CoreysKnickKnacksWPFForm
 {
     public partial class AddItemWindow : Window
     {
-
+    /*
         public StoreItem Item { get; set; }
         public AddItemWindow()
         {
@@ -43,5 +43,7 @@ namespace CoreysKnickKnacksWPFForm
         {
             Close();
         }
+    */
     }
+    
 }

@@ -12,4 +12,6 @@
     <ProjectReference Include="..\CKK.Persistance\CKK.Persistance.csproj" />
   </ItemGroup>
 
+	
+
 </Project>

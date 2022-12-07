@@ -22,7 +22,7 @@ namespace CoreysKnickKnacksWPFForm
     /// </summary>
     public partial class RemoveItem : Window
     {
-
+        /*
         public int IdPH { get; set; }
         public int Quantity { get; set; }
 
@@ -50,5 +50,6 @@ namespace CoreysKnickKnacksWPFForm
         {
             Close();
         }
+        */
     }
 }

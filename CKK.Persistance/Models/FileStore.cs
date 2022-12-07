@@ -15,8 +15,11 @@ using System.Runtime.Serialization;
 
 namespace CKK.Persistance.Models
 {
+    /*
     public class FileStore : IStore, ISavable, ILoadable
     {
+
+        
         private List<StoreItem> items = new List<StoreItem>();
         public readonly string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
         public readonly string filePathCreate = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Persistance";
@@ -224,6 +227,7 @@ namespace CKK.Persistance.Models
         {
             Directory.CreateDirectory(filePathCreate);  
         }
-
+    
     }
+    */
 }
