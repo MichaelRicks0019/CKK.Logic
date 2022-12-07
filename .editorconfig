@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0006: Metadata file 'C:\Users\Lidsh\Source\Repos\MichaelRicks0019\CKK.Logic\CKK.DB\bin\Debug\net5.0\CKK.DB.dll' could not be found
+dotnet_diagnostic.CS0006.severity = none

@@ -35,14 +35,20 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Orders_Add @OrderId");
+                CKK.Logic.Models.Order order = new Logic.Models.Order() { OrderId = id };
+                connection.Execute("dbo.Orders_Delete @OrderId", order);
                 return id;
             }
         }
 
         public List<Order> GetAll()
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                List<Order> order = new List<Order>();
+                order = connection.Query<Order>("dbo.Orders_GetAll").ToList();
+                return order;
+            }
         }
 
         public Order GetById(int id)

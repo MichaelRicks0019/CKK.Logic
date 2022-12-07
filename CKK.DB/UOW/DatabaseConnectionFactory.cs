@@ -17,7 +17,8 @@ namespace CKK.DB.UOW
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
 
-        private readonly string connectionString = CnnVal("StructuredProjectDB");
+        private readonly string connectionString = @"Server=localhost\SQLEXPRESS01;Database=StructuredProjectDB;Trusted_Connection=True;";
+			 
 
         public IDbConnection GetConnection
         {
