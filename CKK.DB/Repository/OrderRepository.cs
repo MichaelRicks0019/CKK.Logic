@@ -35,8 +35,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                CKK.Logic.Models.Order order = new Logic.Models.Order() { OrderId = id };
-                connection.Execute("dbo.Orders_Delete @OrderId", order);
+                connection.Execute("dbo.Orders_Delete @OrderId", new {OrderId = id});
                 return id;
             }
         }
@@ -53,7 +52,13 @@ namespace CKK.DB.Repository
 
         public Order GetById(int id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                List<Order> order = new List<Order>();
+                order = connection.Query<Order>("dbo.Orders_GetById @OrderId", new { OrderId = id }).ToList();
+                return order[0];
+
+            }
         }
 
         public Order GetOrderByCustomerId(int id)

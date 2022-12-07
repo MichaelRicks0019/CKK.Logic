@@ -18,20 +18,25 @@ using CKK.DB.Interfaces;
             Order og = new Order() { CustomerId = 3, OrderNumber = "frds", ShoppingCartId = 3, OrderId = 3 };
             Order oh = new Order() { CustomerId = 4, OrderNumber = "4321", ShoppingCartId = 4, OrderId = 4 };
 
+            Order oh2 = new Order();
 
 
 
 
             /*uow.Orders.Add(of);
             uow.Orders.Add(og);
-            uow.Orders.Add(oh);
-            uow.Orders.Add(od);*/
-            // uow.Orders.Delete(1);
-            List<Order> orders = new List<Order>();
+            uow.Orders.Add(oh);*/
+            //uow.Orders.Add(od);
+            //uow.Orders.Delete(1);
+            oh2 = uow.Orders.GetById(3);
+            
+            /*List<Order> orders = new List<Order>();
 
                orders =  uow.Orders.GetAll();
 
             Assert.Equal(orders, uow.Orders.GetAll());
+            */
+
             }
         }
     }
