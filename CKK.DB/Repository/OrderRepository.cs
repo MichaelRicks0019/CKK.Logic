@@ -15,7 +15,7 @@ namespace CKK.DB.Repository
     class OrderRepository<Order> : IOrderRepository<Order> where Order : CKK.Logic.Models.Order
     {
         public IConnectionFactory conn;
-
+        
         public OrderRepository(IConnectionFactory Conn)
             {
                 conn = Conn;
@@ -53,22 +53,28 @@ namespace CKK.DB.Repository
         public Order GetById(int id)
         {
             using (IDbConnection connection = conn.GetConnection)
-            {
-                List<Order> order = new List<Order>();
-                order = connection.Query<Order>("dbo.Orders_GetById @OrderId", new { OrderId = id }).ToList();
-                return order[0];
-
+            { 
+                var order = connection.Query<Order>("dbo.Orders_GetById @OrderId", new {OrderId = id});
+                return order.FirstOrDefault();
             }
         }
 
         public Order GetOrderByCustomerId(int id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var order = connection.Query<Order>("dbo.Orders_GetOrderByCustomerId @CustomerId", new { CustomerId = id });
+                return order.FirstOrDefault();
+            }
         }
 
         public int Update(Order entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                connection.Execute("dbo.Orders_Update @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity);
+                return entity.OrderId;
+            }
         }
     }
 }

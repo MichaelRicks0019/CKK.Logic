@@ -13,29 +13,15 @@ using CKK.DB.Interfaces;
                 IConnectionFactory conn = new DatabaseConnectionFactory();
                 UnitOfWork uow = new UnitOfWork(conn);
 
-                Order od = new Order() { CustomerId = 1, OrderNumber = "af3ed", ShoppingCartId = 1, OrderId = 1 };
-            Order of = new Order() { CustomerId = 2, OrderNumber = "1234", ShoppingCartId = 2, OrderId = 2 };
-            Order og = new Order() { CustomerId = 3, OrderNumber = "frds", ShoppingCartId = 3, OrderId = 3 };
-            Order oh = new Order() { CustomerId = 4, OrderNumber = "4321", ShoppingCartId = 4, OrderId = 4 };
+            Product p1 = new Product() { Id = 1, Name = "Cheese", Price = 7.99m, Quantity = 12 };
 
-            Order oh2 = new Order();
+            uow.Products.Add(p1);
 
 
 
 
-            /*uow.Orders.Add(of);
-            uow.Orders.Add(og);
-            uow.Orders.Add(oh);*/
-            //uow.Orders.Add(od);
-            //uow.Orders.Delete(1);
-            oh2 = uow.Orders.GetById(3);
-            
-            /*List<Order> orders = new List<Order>();
-
-               orders =  uow.Orders.GetAll();
-
-            Assert.Equal(orders, uow.Orders.GetAll());
-            */
+           
+           
 
             }
         }

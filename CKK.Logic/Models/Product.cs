@@ -26,6 +26,10 @@ namespace CKK.Logic.Models
                 {
                     throw new Exception("Price cannot be less that zero");
                 }
+                else
+                {
+                    price = value;
+                }
             } 
         }
         public int Quantity { get; set; }
