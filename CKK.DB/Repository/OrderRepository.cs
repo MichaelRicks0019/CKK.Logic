@@ -54,7 +54,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             { 
-                var order = connection.Query<Order>("dbo.Orders_GetById @OrderId", new {OrderId = id});
+                var order = connection.Query<Order>("dbo.Orders_GetById @OrderId", new {OrderId = id}).ToList();
                 return order.FirstOrDefault();
             }
         }
@@ -63,7 +63,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                var order = connection.Query<Order>("dbo.Orders_GetOrderByCustomerId @CustomerId", new { CustomerId = id });
+                var order = connection.Query<Order>("dbo.Orders_GetOrderByCustomerId @CustomerId", new { CustomerId = id }).ToList();
                 return order.FirstOrDefault();
             }
         }
