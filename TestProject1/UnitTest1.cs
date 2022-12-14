@@ -18,12 +18,13 @@ using CKK.DB.Interfaces;
             Product p3 = new Product() { Id = 4, Name = "Hamburger", Price = 2m, Quantity = 4 };
             List<Product> products = new List<Product>();
 
-            uow.Products.Add(p3);
+            ShoppingCartItem s1 = new ShoppingCartItem() { CustomerId = 1, ShoppingCartId = 1, ProductId = 1, Quantity = 5 };
+            uow.ShoppingCarts.Add(s1);
 
             products = uow.Products.GetAll();
 
             uow.Products.GetByName("Butterfdsfdf");
-            uow.Products.Update(p1);
+          
 
 
 

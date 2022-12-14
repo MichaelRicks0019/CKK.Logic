@@ -25,8 +25,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                List<Order> order = new List<Order> { entity };
-                connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", order);
+                connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity);
                 return entity.OrderId;
             }
         }
@@ -44,8 +43,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                List<Order> order = new List<Order>();
-                order = connection.Query<Order>("dbo.Orders_GetAll").ToList();
+                var order = connection.Query<Order>("dbo.Orders_GetAll").ToList();
                 return order;
             }
         }

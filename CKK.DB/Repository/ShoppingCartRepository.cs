@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.DB.Interfaces;
 using CKK.Logic.Models;
+using Dapper;
 
 namespace CKK.DB.Repository
 {
@@ -17,7 +19,12 @@ namespace CKK.DB.Repository
         }
         public int Add(ShoppingCartItem entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = connection.Execute("dbo.ShoppingCartItems_Add @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity);
+                return entity.ShoppingCartId;
+            }
+
         }
 
         public ShoppingCartItem AddToCart(string itemName, int quantity)

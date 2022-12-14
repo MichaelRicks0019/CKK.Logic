@@ -21,31 +21,30 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using Microsoft.Win32;
+using CKK.DB.UOW;
+using System.Data;
+using CKK.DB.Interfaces;
 
 namespace CoreysKnickKnacksWPFForm
 {
     
     public partial class Window1 : Window
     {
-        private IStore _Store;
-
-    /*
-    public ObservableCollection<StoreItem> _Items { get; private set; }
-        public Window1(Store store)
+        UnitOfWork UOW;
+        IConnectionFactory conn = new DatabaseConnectionFactory();
+        public Window1()
         {
             InitializeComponent();
-            //_Store = store;
-            _Store = store;
-            _Items = new ObservableCollection<StoreItem>();
-            lbInventoryList.ItemsSource = _Items;
+            UOW = new UnitOfWork(conn);
+            lbInventoryList.ItemsSource = UOW.Products.GetAll();
             RefreshList();
             
         }
 
         private void RefreshList()
         {
-            _Items.Clear();
-            foreach (StoreItem si in new ObservableCollection<StoreItem>(_Store.GetStoreItems())) _Items.Add(si);
+            lbInventoryList.Items.Clear();
+            lbInventoryList.ItemsSource = UOW.Products.GetAll();
         }
 
         private void MainPageAddItem_Click(object sender, RoutedEventArgs e)
@@ -140,6 +139,6 @@ namespace CoreysKnickKnacksWPFForm
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
             viewAllItemsWindow.ShowDialog();
         }
-    */
+    
     }
 }

@@ -25,7 +25,6 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                List<Product> product = new List<Product> { entity };
                 connection.Execute("dbo.Products_Add @Id, @Price, @Quantity, @Name", entity);
                 return entity.Id;
             }
@@ -45,8 +44,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                List<Product> product = new List<Product>();
-                product = connection.Query<Product>("dbo.Products_GetAll").ToList();
+                var product = connection.Query<Product>("dbo.Products_GetAll").ToList();
                 return product;
             }
         }
