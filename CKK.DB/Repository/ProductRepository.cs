@@ -25,8 +25,8 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Products_Add @Id, @Price, @Quantity, @Name", entity);
-                return entity.Id;
+                var product = connection.Execute("dbo.Products_Add @Id, @Price, @Quantity, @Name", entity);
+                return product;
             }
         }
 
@@ -34,8 +34,8 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Products_Delete @Id", new {id});
-                return id;
+                var product = connection.Execute("dbo.Products_Delete @Id", new {id});
+                return product;
             }
 
         }
@@ -71,8 +71,8 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Products_Update @Id, @Price, @Quantity, @Name", entity);
-                return entity.Id;
+                var product = connection.Execute("dbo.Products_Update @Id, @Price, @Quantity, @Name", entity);
+                return product;
             }
 
         }

@@ -2,8 +2,9 @@ using Xunit;
 using CKK.Logic.Models;
 using CKK.DB.UOW;
 using CKK.DB.Interfaces;
+using System.Security.Permissions;
 
-    namespace ModelsTest
+namespace ModelsTest
     {
         public class UnitTest1
         {
@@ -19,7 +20,9 @@ using CKK.DB.Interfaces;
             List<Product> products = new List<Product>();
 
             ShoppingCartItem s1 = new ShoppingCartItem() { CustomerId = 1, ShoppingCartId = 1, ProductId = 1, Quantity = 5 };
-            uow.ShoppingCarts.Add(s1);
+            uow.ShoppingCarts.AddToCart("Cheese", 4, 1);
+            Console.ReadKey();
+            uow.ShoppingCarts.ClearCart(1);
 
             products = uow.Products.GetAll();
 

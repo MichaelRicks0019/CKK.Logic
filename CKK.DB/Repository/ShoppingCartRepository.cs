@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.DB.Interfaces;
+using CKK.Logic.Exceptions;
 using CKK.Logic.Models;
 using Dapper;
 
@@ -27,14 +28,23 @@ namespace CKK.DB.Repository
 
         }
 
-        public ShoppingCartItem AddToCart(string itemName, int quantity)
+        public ShoppingCartItem AddToCart(string itemName, int quantity, int shoppingCartId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                connection.Execute("dbo.ShoppingCartItems_AddToCart @Name, @CustomerId, @ShoppingCartId, @Quantity", new {Name = itemName, CustomerId = 1, ShoppingCartId = shoppingCartId, Quantity = quantity});
+                var item = connection.Query<ShoppingCartItem>($"SELECT * FROM dbo.ShoppingCartItems WHERE ShoppingCartId = {shoppingCartId} AND ProductId = (SELECT Id FROM dbo.Products WHERE Name = '{itemName}';");
+                return item.FirstOrDefault();
+            }
         }
 
         public int ClearCart(int shoppingCartId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = connection.Execute("dbo.ShoppingCartItems_ClearCart, @ShoppingCartId", shoppingCartId);
+                return item;
+            }
         }
 
         public List<ShoppingCartItem> GetProducts(int shoppingCartId)
