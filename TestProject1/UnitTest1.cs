@@ -16,11 +16,13 @@ namespace ModelsTest
 
             Product p1 = new Product() { Id = 1, Name = "Cheese", Price = .10m, Quantity = 12 };
             Product p2 = new Product() { Id = 2, Name = "Butter", Price = .50m, Quantity = 12 };
-            Product p3 = new Product() { Id = 4, Name = "Hamburger", Price = 2m, Quantity = 4 };
+            Product p3 = new Product() { Id = 4, Name = "Hamburger", Price = 3m, Quantity = 10 };
             List<Product> products = new List<Product>();
+            List<ShoppingCartItem> items = new List<ShoppingCartItem>();
 
-            ShoppingCartItem s1 = new ShoppingCartItem() { CustomerId = 1, ShoppingCartId = 1, ProductId = 1, Quantity = 5 };
-            uow.ShoppingCarts.AddToCart("Cheese", 4, 1);
+            ShoppingCartItem s1 = new ShoppingCartItem() { CustomerId = 1, ShoppingCartId = 1, ProductId = 2, Quantity = 5 };
+            decimal priceTotal = uow.ShoppingCarts.GetTotal(1);
+            uow.ShoppingCarts.Update(s1);
             Console.ReadKey();
             uow.ShoppingCarts.ClearCart(1);
 

@@ -14,26 +14,28 @@ using System.Windows.Shapes;
 using CKK.Logic.Exceptions;
 using CKK.Logic.Models;
 using CKK.Logic.Interfaces;
+using CKK.DB.UOW;
+using CKK.DB.Interfaces;
 
 namespace CoreysKnickKnacksWPFForm
 {
     public partial class AddItemWindow : Window
     {
-    /*
-        public StoreItem Item { get; set; }
+
+        IConnectionFactory conn = new DatabaseConnectionFactory();
+        public UnitOfWork uow;
         public AddItemWindow()
         {
             InitializeComponent();
+            uow = new UnitOfWork(conn);
+
         }
 
         private void AddItemButton_Click(object sender, RoutedEventArgs e)
         {
-            Product product = new Product();
-            decimal price = decimal.Parse(priceTextBox.Text);
-            int quantity = int.Parse(quantityTextBox.Text);
-            product.SetName(this.nameTextBox.Text);
-            product.SetPrice(price);
-            Item = new StoreItem(product, quantity);
+
+            Product prod = new Product() { Id = int.Parse(idTextBox.Text), Price = decimal.Parse(priceTextBox.Text), Quantity = int.Parse(quantityTextBox.Text), Name = nameTextBox.Text };
+            uow.Products.Add(prod);
             DialogResult = true;
             Close();
 
@@ -43,7 +45,7 @@ namespace CoreysKnickKnacksWPFForm
         {
             Close();
         }
-    */
+    
     }
     
 }

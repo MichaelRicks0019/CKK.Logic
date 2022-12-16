@@ -21,21 +21,26 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
 
-        <Label x:Name="nameLabel" Content="Name" Grid.Column="2" Grid.Row="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
-        <TextBox x:Name="nameTextBox" Width="300" Grid.Column="3" Grid.Row="2" BorderBrush="Black" Height="26" HorizontalAlignment="Stretch"/>
+        <Label x:Name="nameLabel" Content="Name" Grid.Column="2" Grid.Row="5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="nameTextBox" Width="300" Grid.Column="3" Grid.Row="5" BorderBrush="Black" Height="26" HorizontalAlignment="Stretch"/>
 
         <Label x:Name="quantityLabel" Content="Quantity" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="quantityTextBox" Width="300" Grid.Column="3" Grid.Row="3" BorderBrush="Black" VerticalAlignment="Center" Height="26" HorizontalAlignment="Stretch"/>
 
         <Label x:Name="priceLabel" Content="Price" Grid.Column="2" Grid.Row="4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
         <TextBox x:Name="priceTextBox" Width="300" Grid.Column="3" Grid.Row="4" BorderBrush="Black" VerticalAlignment="Center" Height="26" HorizontalAlignment="Stretch"/>
-        <Button Content="Add Item" Grid.Column="3" HorizontalAlignment="Left" Margin="0,21,0,0" Grid.Row="5" VerticalAlignment="Top" Height="30" Width="71" Click="AddItemButton_Click"/>
-        <Button Content="Cancel" Grid.Column="3" HorizontalAlignment="Left" Margin="229,21,0,0" Grid.Row="5" VerticalAlignment="Top" Height="30" Width="71" Click="Button_Click"/>
+
+        <Label x:Name="idLabel" Content="Id" Grid.Column="2" Grid.Row="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,20,0" HorizontalAlignment="Stretch"/>
+        <TextBox x:Name="idTextBox" Width="300" Grid.Column="3" Grid.Row="2" BorderBrush="Black" VerticalAlignment="Center" Height="26" HorizontalAlignment="Stretch"/>
+        
+        <Button Content="Add Item" Grid.Column="3" HorizontalAlignment="Left" Margin="0,21,0,0" Grid.Row="6" VerticalAlignment="Top" Height="30" Width="71" Click="AddItemButton_Click"/>
+        <Button Content="Cancel" Grid.Column="3" HorizontalAlignment="Left" Margin="229,21,0,0" Grid.Row="6" VerticalAlignment="Top" Height="30" Width="71" Click="Button_Click"/>
         <Label Content="Add an Item Below" Grid.Column="3" HorizontalAlignment="Center" Margin="0,39,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18"/>
 
     </Grid>

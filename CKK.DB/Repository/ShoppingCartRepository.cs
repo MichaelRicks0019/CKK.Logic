@@ -25,17 +25,6 @@ namespace CKK.DB.Repository
                 var item = connection.Execute("dbo.ShoppingCartItems_Add @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity);
                 return entity.ShoppingCartId;
             }
-
-        }
-
-        public ShoppingCartItem AddToCart(string itemName, int quantity, int shoppingCartId)
-        {
-            using (IDbConnection connection = conn.GetConnection)
-            {
-                connection.Execute("dbo.ShoppingCartItems_AddToCart @Name, @CustomerId, @ShoppingCartId, @Quantity", new {Name = itemName, CustomerId = 1, ShoppingCartId = shoppingCartId, Quantity = quantity});
-                var item = connection.Query<ShoppingCartItem>($"SELECT * FROM dbo.ShoppingCartItems WHERE ShoppingCartId = {shoppingCartId} AND ProductId = (SELECT Id FROM dbo.Products WHERE Name = '{itemName}';");
-                return item.FirstOrDefault();
-            }
         }
 
         public int ClearCart(int shoppingCartId)
@@ -49,12 +38,20 @@ namespace CKK.DB.Repository
 
         public List<ShoppingCartItem> GetProducts(int shoppingCartId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = connection.Query<ShoppingCartItem>("dbo.ShoppingCartItems_GetProducts @ShoppingCartId", new { ShoppingCartId = shoppingCartId }).ToList();
+                return item;
+            }
         }
 
         public decimal GetTotal(int shoppingCartId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = connection.Query<decimal>("dbo.ShoppingCartItems_GetTotal @ShoppingCartId", new {ShoppingCartId = shoppingCartId}).ToList();
+                return item.FirstOrDefault();
+            }
         }
 
         public void Ordered(int shoppingCartId)
@@ -64,7 +61,11 @@ namespace CKK.DB.Repository
 
         public int Update(ShoppingCartItem entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = connection.Execute("dbo.ShoppingCartItems_Update @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity);
+                return item;
+            }
         }
     }
 }
