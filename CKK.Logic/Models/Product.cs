@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Exceptions;
+using System.Drawing;
 
 namespace CKK.Logic.Models
 {
@@ -33,5 +34,7 @@ namespace CKK.Logic.Models
             } 
         }
         public int Quantity { get; set; }
+
+        public override String ToString() => String.Format("Id: {0}  Name: {1}  Price: {2:C}  Quantity: {3}", Id, Name, Price, Quantity);
     }
 }

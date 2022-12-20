@@ -40,6 +40,7 @@ namespace CoreysKnickKnacksWPFForm
         {
             if (removeItemComboBox.SelectedItem != null)
             {
+                comboBoxProd = (Product)removeItemComboBox.SelectedItem;
                 UOW.Products.Delete(comboBoxProd.Id);
                 DialogResult = true;
                 Close();

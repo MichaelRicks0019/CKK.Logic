@@ -41,18 +41,8 @@ namespace CoreysKnickKnacksWPFForm
         private void RefreshList()
         {
             List<Product> list = new List<Product>();
-            List<Product> list2 = new List<Product>();
             list = UOW.Products.GetAll();
-            foreach (Product prod in list)
-            {
-                Product prod2 = new Product();
-                prod2.Name = prod.Name;
-                prod2.Id = prod.Id;
-                prod2.Price = prod.Price;
-                prod2.Quantity= prod.Quantity;
-                list2.Add(prod2);
-            }
-            lbInventoryList.ItemsSource = list2;
+            lbInventoryList.ItemsSource = list;
         }
 
         private void MainPageAddItem_Click(object sender, RoutedEventArgs e)

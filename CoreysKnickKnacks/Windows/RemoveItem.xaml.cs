@@ -28,18 +28,21 @@ namespace CoreysKnickKnacksWPFForm
         IConnectionFactory conn;
         UnitOfWork UOW;
         Product comboBoxProd;
+        List<Product> products = new List<Product>();
         public RemoveItem()
         {
             InitializeComponent();
             conn = new DatabaseConnectionFactory();
             UOW = new UnitOfWork(conn);
-            removeItemComboBox.ItemsSource = UOW.Products.GetAll();
+            products = UOW.Products.GetAll();
+            removeItemComboBox.ItemsSource = products;
         }
 
         private void removeItemButton_Click(object sender, RoutedEventArgs e)
         {
             if (removeItemComboBox.SelectedItem != null)
             {
+                comboBoxProd = (Product)removeItemComboBox.SelectedItem;
                 UOW.Products.Delete(comboBoxProd.Id);
                 DialogResult = true;
                 Close();
