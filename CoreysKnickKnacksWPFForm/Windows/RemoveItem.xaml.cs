@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
 using CKK.Logic.Exceptions;
+using CKK.DB.Interfaces;
+using CKK.DB.UOW;
 
 namespace CoreysKnickKnacksWPFForm
 {
@@ -22,24 +24,23 @@ namespace CoreysKnickKnacksWPFForm
     /// </summary>
     public partial class RemoveItem : Window
     {
-        /*
-        public int IdPH { get; set; }
-        public int Quantity { get; set; }
 
-        public StoreItem comboboxItem { get; set; }
-        public ComboBox removeItemComboBoxPH { get; set; }
+        IConnectionFactory conn;
+        UnitOfWork UOW;
+        Product comboBoxProd;
         public RemoveItem()
         {
             InitializeComponent();
+            conn = new DatabaseConnectionFactory();
+            UOW = new UnitOfWork(conn);
+            removeItemComboBox.ItemsSource = UOW.Products.GetAll();
         }
 
         private void removeItemButton_Click(object sender, RoutedEventArgs e)
         {
             if (removeItemComboBox.SelectedItem != null)
             {
-                comboboxItem = (StoreItem)removeItemComboBox.SelectedItem;
-                IdPH = comboboxItem.Product.GetId();
-                Quantity = int.Parse(quantityRemoveItemTextBox.Text);
+                UOW.Products.Delete(comboBoxProd.Id);
                 DialogResult = true;
                 Close();
             }
@@ -50,6 +51,6 @@ namespace CoreysKnickKnacksWPFForm
         {
             Close();
         }
-        */
+        
     }
 }

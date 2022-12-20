@@ -27,18 +27,16 @@ namespace CoreysKnickKnacksWPFForm
         public AddItemWindow()
         {
             InitializeComponent();
-            uow = new UnitOfWork(conn);
-
         }
 
         private void AddItemButton_Click(object sender, RoutedEventArgs e)
         {
-
-            Product prod = new Product() { Id = int.Parse(idTextBox.Text), Price = decimal.Parse(priceTextBox.Text), Quantity = int.Parse(quantityTextBox.Text), Name = nameTextBox.Text };
-            uow.Products.Add(prod);
-            DialogResult = true;
-            Close();
-
+            if (idTextBox != null && quantityTextBox != null && priceTextBox != null)
+            {
+                DialogResult = true;
+                Close();
+            }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

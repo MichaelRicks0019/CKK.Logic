@@ -30,9 +30,8 @@ namespace CoreysKnickKnacksWPFForm
     
     public partial class Window1 : Window
     {
-        UnitOfWork UOW;
-        IConnectionFactory conn = new DatabaseConnectionFactory();
-        public Window1()
+        UnitOfWork UOW; 
+        public Window1(IConnectionFactory conn)
         {
             InitializeComponent();
             UOW = new UnitOfWork(conn);
@@ -54,7 +53,8 @@ namespace CoreysKnickKnacksWPFForm
 
             if (addItemWindow.DialogResult == true)
             {
-                _Store.AddStoreItem(addItemWindow.Item.Product, addItemWindow.Item.Quantity);
+                Product prod = new Product() { Id = int.Parse(addItemWindow.idTextBox.Text), Price = decimal.Parse(addItemWindow.priceTextBox.Text), Quantity = int.Parse(addItemWindow.quantityTextBox.Text), Name = addItemWindow.nameTextBox.Text };
+                UOW.Products.Add(prod);
                 RefreshList();
             }
 
@@ -63,12 +63,11 @@ namespace CoreysKnickKnacksWPFForm
         private void RemoveAllItems_Click(object sender, RoutedEventArgs e)
         {
             RemoveItem removeItemWindow = new RemoveItem();
-            removeItemWindow.removeItemComboBox.ItemsSource = _Items;
+            removeItemWindow.removeItemComboBox.ItemsSource = UOW.Products.GetAll();
             removeItemWindow.ShowDialog();
 
             if(removeItemWindow.DialogResult == true)
             {
-                _Store.RemoveStoreItem(removeItemWindow.IdPH, removeItemWindow.Quantity);
                 RefreshList();
             }
     
@@ -77,43 +76,19 @@ namespace CoreysKnickKnacksWPFForm
         private void ViewAllItems_Click(object sender, RoutedEventArgs e)
         {
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
-            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = _Items;
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = UOW.Products.GetAll();
             viewAllItemsWindow.ShowDialog();
-        }
-
-        private void SaveItems_Click(object sender, RoutedEventArgs e)
-        {
-            FileStore fs = new FileStore();
-            foreach(StoreItem si in _Items)
-            {
-                fs.AddStoreItem(si.GetProduct(), si.GetQuantity());
-            }
-            fs.Save();
-            //Random beep for the fun of it
-            Console.Beep();
         }
 
         private void LoadItems_CLick(object sender, RoutedEventArgs e)
         {
-            FileStore fs = new FileStore();
-            fs.Load();
-            _Items.Clear();
-            foreach(StoreItem si in _Store.GetStoreItems())
-            {
-                si.SetQuantity(0);
-            }
-
-            foreach(StoreItem si in fs.GetStoreItems())
-            {
-                _Store.AddStoreItem(si.Product, si.GetQuantity());
-            }
             RefreshList();
         }
 
         private void buttonGetProductByName_Click(object sender, RoutedEventArgs e)
         {
-            List<StoreItem> tempList = new List<StoreItem>();
-           tempList = _Store.GetAllProductsByName(textBoxSorting.Text);
+            List<Product> tempList = new List<Product>();
+            tempList = UOW.Products.GetByName(textBoxSorting.Text);
 
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
             viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
@@ -122,21 +97,37 @@ namespace CoreysKnickKnacksWPFForm
 
         private void buttonGetProductsByQuantity_Click(object sender, RoutedEventArgs e)
         {
-            List<StoreItem> tempList = new List<StoreItem>();
-            tempList = _Store.GetProductsByQuantity();
+            List<Product> tempList = new List<Product>();
+            List<Product> tempListQuantity = new List<Product>();
+            tempList = UOW.Products.GetAll();
+            foreach (Product prod in tempList)
+            {
+                if(prod.Quantity == int.Parse(textBoxSorting.Text))
+                {
+                    tempListQuantity.Add(prod);
+                }
+            }
 
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
-            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempListQuantity;
             viewAllItemsWindow.ShowDialog();
         }
 
         private void buttonGetProductsByPrice_Click(object sender, RoutedEventArgs e)
         {
-            List<StoreItem> tempList = new List<StoreItem>();
-            tempList = _Store.GetProductsByPrice();
+            List<Product> tempList = new List<Product>();
+            List<Product> tempListPrice = new List<Product>();
+            tempList = UOW.Products.GetAll();
+            foreach (Product prod in tempList)
+            {
+                if (prod.Price == decimal.Parse(textBoxSorting.Text))
+                {
+                    tempListPrice.Add(prod);
+                }
+            }
 
             ViewAllItemsWindow viewAllItemsWindow = new ViewAllItemsWindow();
-            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempList;
+            viewAllItemsWindow.viewAllItemsListBox.ItemsSource = tempListPrice;
             viewAllItemsWindow.ShowDialog();
         }
     

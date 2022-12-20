@@ -19,23 +19,21 @@ using CKK.Logic;
 using System.Collections.ObjectModel;
 using CKK.Persistance.Interfaces;
 using CKK.Persistance.Models;
-
-
+using CKK.DB.UOW;
+using CKK.DB.Interfaces;
+using System.Data;
 namespace CoreysKnickKnacksWPFForm
 {
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     
-    /*
+    
     public partial class MainWindow : Window
     {
-        public static Store coreysKnickKnacks = new Store();
-
-        public MainWindow(Store store)
-        {
-          
-        }
+        
 
         public MainWindow()
         {
@@ -45,12 +43,12 @@ namespace CoreysKnickKnacksWPFForm
 
         private void loginButtonMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            Store tp = (Store)Application.Current.FindResource("globStore");
-            Window1 inven = new Window1(tp);
+            IConnectionFactory conn = new DatabaseConnectionFactory();
+            Window1 inven = new Window1(conn);
             inven.Show();
             this.Close();
            
         }
     }
-    */
+    
 }

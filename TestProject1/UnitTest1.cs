@@ -11,6 +11,8 @@ namespace ModelsTest
             [Fact]
             public void IfAddProductsTest()
             {
+            
+
                 IConnectionFactory conn = new DatabaseConnectionFactory();
                 UnitOfWork uow = new UnitOfWork(conn);
 
