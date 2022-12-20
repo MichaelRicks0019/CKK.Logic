@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -11,6 +12,5 @@
     <ProjectReference Include="..\CKK.Logic\CKK.Logic.csproj" />
     <ProjectReference Include="..\CKK.Persistance\CKK.Persistance.csproj" />
   </ItemGroup>
-	
 
 </Project>
