@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
 using CKK.Logic.Exceptions;
-using CKK.Persistance.Interfaces;
+
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CKK.DB.Interfaces
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork
     {
         IProductRepository<Product> Products { get; }
 

@@ -1,0 +1,4 @@
+﻿@foreach (var item in Model.UOW.Products.GetAll())
+{
+    <partial name="_ProductCard" model="item"/>
+}

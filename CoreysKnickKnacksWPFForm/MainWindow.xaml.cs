@@ -17,7 +17,7 @@ using CKK.Logic.Interfaces;
 using CKK.Logic.Exceptions;
 using CKK.Logic;
 using System.Collections.ObjectModel;
-using CKK.Persistance.Interfaces;
+
 using CKK.DB.UOW;
 using CKK.DB.Interfaces;
 using System.Data;
