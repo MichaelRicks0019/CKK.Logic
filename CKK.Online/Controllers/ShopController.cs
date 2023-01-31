@@ -3,6 +3,9 @@ using CKK.Logic;
 using CKK.DB;
 using CKK.DB.Interfaces;
 using CKK.DB.UOW;
+using CKK.Online.Models;
+using Microsoft.Azure.Management.ResourceManager.Models;
+using Microsoft.TeamFoundation.Lab.Client;
 
 namespace CKK.Online.Controllers
 {
@@ -18,12 +21,24 @@ namespace CKK.Online.Controllers
         [Route("/Shop/ShoppingCart")]
         public IActionResult Index()
         {
-            return View();
+            var model = new ShopModel(UOW);
+            UOW.ShoppingCarts.ClearCart(model.Order.ShoppingCartId); //Clear the cart on refresh
+            return View("ShoppingCart", model);
         }
 
         public IActionResult CheckOutCustomer([FromQuery]int orderId)
         {
-            return View();
+            string statusMessage = "";
+            //Get order info
+
+            //Update quantities of products in inventory
+
+            //For the assignment we just delete or clear 
+
+            statusMessage = "Order Placed Successfully";
+
+            var model = new CheckOutModel { StatusMessage = statusMessage.Trim('\0') };
+            return View("Checkout", model);
         }
 
         [HttpGet]
