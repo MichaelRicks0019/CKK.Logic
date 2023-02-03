@@ -31,7 +31,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                var item = connection.Execute("dbo.ShoppingCartItems_ClearCart, @ShoppingCartId", shoppingCartId);
+                var item = connection.Execute("dbo.ShoppingCartItems_ClearCart @ShoppingCartId", new { ShoppingCartId = shoppingCartId });
                 return item;
             }
         }
