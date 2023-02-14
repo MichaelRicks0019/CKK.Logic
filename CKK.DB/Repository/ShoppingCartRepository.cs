@@ -11,7 +11,7 @@ using Dapper;
 
 namespace CKK.DB.Repository
 {
-    class ShoppingCartRepository : IShoppingCartRepository
+    public class ShoppingCartRepository : IShoppingCartRepository
     {
         public IConnectionFactory conn;
         public ShoppingCartRepository(IConnectionFactory Conn)

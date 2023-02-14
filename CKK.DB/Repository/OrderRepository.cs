@@ -12,7 +12,7 @@ using Dapper;
 
 namespace CKK.DB.Repository
 {
-    class OrderRepository<Order> : IOrderRepository<Order> where Order : CKK.Logic.Models.Order
+    public class OrderRepository<Order> : IOrderRepository<Order> where Order : CKK.Logic.Models.Order
     {
         public IConnectionFactory conn;
         
@@ -30,11 +30,29 @@ namespace CKK.DB.Repository
             }
         }
 
+        public Task<int> AddAsync(Order entity)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                await Task.Run(() => connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity));
+                return entity.OrderId;
+            }
+        }
+
         public int Delete(int id)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Orders_Delete @OrderId", new {OrderId = id});
+                connection.Execute("dbo.Orders_Delete @OrderId", new {OrderId = id}));
+                return id;
+            }
+        }
+
+        public Task<tint> DeleteAsync(int id)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                await Task.Run(() => connection.Execute("dbo.Orders_Delete @OrderId", new { OrderId = id }));
                 return id;
             }
         }

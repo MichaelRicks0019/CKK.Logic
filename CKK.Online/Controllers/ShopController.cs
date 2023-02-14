@@ -6,6 +6,7 @@ using CKK.DB.UOW;
 using CKK.Online.Models;
 using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.TeamFoundation.Build.WebApi;
+using CKK.Logic.Models;
 
 namespace CKK.Online.Controllers
 {
@@ -24,8 +25,15 @@ namespace CKK.Online.Controllers
             var model = new ShopModel(UOW);
             UOW.ShoppingCarts.ClearCart(model.Order.ShoppingCartId); //Clear the cart on refresh
             return View("ShoppingCart", model);
-            model.UOW.Products.GetAll();
         }
+
+        /*[HttpPost]
+        [AutoValidateAntiforgeryToken]
+        [Route("/Shop/ShoppingCart")]
+        public IActionResult Index()
+        {
+            
+        }*/
 
         public IActionResult CheckOutCustomer([FromQuery]int orderId)
         {
@@ -39,15 +47,16 @@ namespace CKK.Online.Controllers
             return View("Checkout", model);
         }
 
-        /*[HttpGet]
-        [Route("Shop/ShoppingCart/Add/{productId}")]
-        public IActionResult Add([FromRoute]int productId, [FromQuery]int quantity) 
+        [HttpGet]
+        public IActionResult Add(Product prod) 
         {
-            var order = UOW.Orders.GetByIdAsync(1).Result;
-            var test = UOW.ShoppingCarts.AddtoCart(order.ShoppingCartId, productId, quantity);
+            var order = UOW.Orders.GetById(1);
+            ShoppingCartItem item = new ShoppingCartItem() { CustomerId = order.CustomerId, ShoppingCartId = order.ShoppingCartId, ProductId = prod.Id, Quantity = prod.Quantity };
+
+            var test = UOW.ShoppingCarts.Add(item);
 
             var total = UOW.ShoppingCarts.GetTotal(order.ShoppingCartId).ToString("c");
             return Ok(total);
-        }*/
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace CKK.DB.Interfaces
 {
     public interface IProductRepository<Product> : IGenericRepository<Product> where Product : CKK.Logic.Models.Product
     {
-        List<Product> GetAll();
         List<Product> GetByName(string name);
     }
 }

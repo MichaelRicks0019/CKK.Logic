@@ -12,7 +12,7 @@ using Dapper;
 
 namespace CKK.DB.Repository
 {
-    class ProductRepository<Product> : IProductRepository<Product> where Product : CKK.Logic.Models.Product
+    public class ProductRepository<Product> : IProductRepository<Product> where Product : CKK.Logic.Models.Product
     {
         public IConnectionFactory conn;
         
