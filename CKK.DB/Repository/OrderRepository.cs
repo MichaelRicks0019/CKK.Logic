@@ -39,7 +39,7 @@ namespace CKK.DB.Repository
             }
         }
 
-        public int Delete(int id)
+        int Delete(int id)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
