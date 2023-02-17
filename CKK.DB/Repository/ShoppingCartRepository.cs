@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CKK.DB.Interfaces;
 using CKK.Logic.Exceptions;
+using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
 using Dapper;
 
@@ -93,7 +94,18 @@ namespace CKK.DB.Repository
 
         public void Ordered(int shoppingCartId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = connection.Execute("dbo.ShoppingCartItems_Ordered @ShoppingCartId,", new { ShoppingCartId = shoppingCartId } );
+            }
+        }
+
+        public async Task OrderedAsync(int shoppingCartId)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_Ordered @ShoppingCartId,", new { ShoppingCartId = shoppingCartId }));
+            }
         }
 
         public int Update(ShoppingCartItem entity)
@@ -109,7 +121,7 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                var item = await Task.Run( () = connection.Execute("dbo.ShoppingCartItems_Update @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity));
+                var item = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_Update @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity));
                 return item;
             }
         }
