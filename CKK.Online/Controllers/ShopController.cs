@@ -27,20 +27,8 @@ namespace CKK.Online.Controllers
             return View("ShoppingCart", model);
         }
 
-        /*[HttpPost]
-        [AutoValidateAntiforgeryToken]
-        [Route("/Shop/ShoppingCart")]
-        public IActionResult Index()
-        {
-            
-        }*/
-
         public IActionResult CheckOutCustomer([FromQuery]int orderId)
         {
-            //Get order info
-            //Update quantities of products in inventory
-            //For the assignment we just delete or clear 
-
             string statusMessage = "Order Placed Successfully";
 
             var model = new CheckOutModel { StatusMessage = statusMessage.Trim('\0') };
@@ -48,6 +36,18 @@ namespace CKK.Online.Controllers
         }
 
         [HttpGet]
+        [Route("Shop/ShoppingCart/Add/{productId}")]
+        public IActionResult Add([FromRoute] int productId, [FromQuery] int quantity)
+        {
+            var order = UOW.Orders.GetByIdAsync(1).Result;
+            ShoppingCartItem item = new ShoppingCartItem() { CustomerId = order.CustomerId, ShoppingCartId = order.ShoppingCartId, ProductId = productId, Quantity = quantity };
+            var test = UOW.ShoppingCarts.Add(item);
+
+            var total = UOW.ShoppingCarts.GetTotal(order.ShoppingCartId).ToString("c");
+            return Ok(total);
+        }
+
+        /*[HttpGet]
         public IActionResult Add(Product prod) 
         {
             var order = UOW.Orders.GetById(1);
@@ -57,6 +57,6 @@ namespace CKK.Online.Controllers
 
             var total = UOW.ShoppingCarts.GetTotal(order.ShoppingCartId).ToString("c");
             return Ok(total);
-        }
+        }*/
     }
 }

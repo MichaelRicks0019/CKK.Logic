@@ -9,6 +9,7 @@ using CKK.Logic.Exceptions;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Models;
 using Dapper;
+using static Dapper.SqlMapper;
 
 namespace CKK.DB.Repository
 {
@@ -28,12 +29,12 @@ namespace CKK.DB.Repository
                 return item;
             }
         }
-
+        
         public async Task<int> AddAsync(ShoppingCartItem entity)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                var itemTask = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_Add @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity));
+                var itemTask = await Task.Run(() => connection.Execute("dbo.ShoppingCartItems_Add @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity));
                 return itemTask;
             }
         }
