@@ -31,7 +31,7 @@ namespace CKK.DB.Interfaces
 
         Task<List<ShoppingCartItem>> GetProductsAsync(int shoppingCartId);
 
-        void OrderedAsync(int shoppingCartId);
+        Task OrderedAsync(int shoppingCartId);
 
         Task<int> UpdateAsync(ShoppingCartItem entity);
 
