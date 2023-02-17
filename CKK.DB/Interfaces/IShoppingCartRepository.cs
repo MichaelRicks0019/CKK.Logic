@@ -11,6 +11,7 @@ namespace CKK.DB.Interfaces
     {
         /*ShoppingCartItem AddToCart(string itemName, int quantity);*/
 
+        //Regular Methods
         int ClearCart(int shoppingCartId);
 
         decimal GetTotal(int shoppingCartId);
@@ -22,5 +23,18 @@ namespace CKK.DB.Interfaces
         int Update(ShoppingCartItem entity);
 
         int Add(ShoppingCartItem entity);
+
+        //Async Methods
+        Task<int> ClearCartAsync(int shoppingCartId);
+
+        Task<decimal> GetTotalAsync(int shoppingCartId);
+
+        Task<List<ShoppingCartItem>> GetProductsAsync(int shoppingCartId);
+
+        void OrderedAsync(int shoppingCartId);
+
+        Task<int> UpdateAsync(ShoppingCartItem entity);
+
+        Task<int> AddAsync(ShoppingCartItem entity);
     }
 }

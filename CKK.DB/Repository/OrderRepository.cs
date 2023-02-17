@@ -25,35 +25,35 @@ namespace CKK.DB.Repository
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity);
-                return entity.OrderId;
+                var order = connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity);
+                return order;
             }
         }
 
-        public Task<int> AddAsync(Order entity)
+        public async Task<int> AddAsync(Order entity)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                await Task.Run(() => connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity));
-                return entity.OrderId;
+                var order = await Task.Run(() => connection.Execute("dbo.Orders_Add @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity));
+                return order;
             }
         }
 
-        int Delete(int id)
+        public int Delete(int id)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Orders_Delete @OrderId", new {OrderId = id}));
-                return id;
+                var order = connection.Execute("dbo.Orders_Delete @OrderId", new {OrderId = id});
+                return order;
             }
         }
 
-        public Task<tint> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                await Task.Run(() => connection.Execute("dbo.Orders_Delete @OrderId", new { OrderId = id }));
-                return id;
+                var orderTask = await Task.Run(() => connection.Execute("dbo.Orders_Delete @OrderId", new { OrderId = id }));
+                return orderTask;
             }
         }
 
@@ -66,12 +66,30 @@ namespace CKK.DB.Repository
             }
         }
 
+        public async Task<List<Order>> GetAllAsync()
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var orderTask = await Task.Run(() => connection.Query<Order>("dbo.Orders_GetAll").ToList());
+                return orderTask;
+            }
+        }
+
         public Order GetById(int id)
         {
             using (IDbConnection connection = conn.GetConnection)
             { 
                 var order = connection.Query<Order>("dbo.Orders_GetById @OrderId", new {OrderId = id}).ToList();
                 return order.FirstOrDefault();
+            }
+        }
+
+        public async Task<Order> GetByIdAsync(int id)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var orderTask = await Task.Run(() => connection.Query<Order>("dbo.Orders_GetById @OrderId", new { OrderId = id }).ToList());
+                return orderTask.FirstOrDefault();
             }
         }
 
@@ -84,12 +102,30 @@ namespace CKK.DB.Repository
             }
         }
 
+        public async Task<Order> GetOrderByCustomerIdAsync(int id)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var orderTask = await Task.Run(() => connection.Query<Order>("dbo.Orders_GetOrderByCustomerId @CustomerId", new { CustomerId = id }).ToList());
+                return orderTask.FirstOrDefault();
+            }
+        }
+
         public int Update(Order entity)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
-                connection.Execute("dbo.Orders_Update @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity);
-                return entity.OrderId;
+                var order = connection.Execute("dbo.Orders_Update @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity);
+                return order;
+            }
+        }
+
+        public async Task<int> UpdateAsync(Order entity)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var orderTask = await Task.Run( () => connection.Execute("dbo.Orders_Update @OrderId, @OrderNumber, @CustomerId, @ShoppingCartId", entity));
+                return orderTask;
             }
         }
     }

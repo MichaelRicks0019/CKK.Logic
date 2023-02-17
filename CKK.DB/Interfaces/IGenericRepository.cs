@@ -16,7 +16,7 @@ namespace CKK.DB.Interfaces
         int Delete(int id);
 
         //Async Methods
-        Task<T> GetByIdAsync();
+        Task<T> GetByIdAsync(int id);
         Task<List<T>> GetAllAsync();
         Task<int> AddAsync(T entity);
         Task<int> UpdateAsync(T entity);

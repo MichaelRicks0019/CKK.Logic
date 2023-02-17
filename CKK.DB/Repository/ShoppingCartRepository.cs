@@ -18,12 +18,22 @@ namespace CKK.DB.Repository
         {
             conn = Conn;
         }
+
         public int Add(ShoppingCartItem entity)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
                 var item = connection.Execute("dbo.ShoppingCartItems_Add @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity);
-                return entity.ShoppingCartId;
+                return item;
+            }
+        }
+
+        public async Task<int> AddAsync(ShoppingCartItem entity)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var itemTask = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_Add @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity));
+                return itemTask;
             }
         }
 
@@ -36,6 +46,15 @@ namespace CKK.DB.Repository
             }
         }
 
+        public async Task<int> ClearCartAsync(int shoppingCartId)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var itemTask = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_ClearCart @ShoppingCartId", new { ShoppingCartId = shoppingCartId }));
+                return itemTask;
+            }
+        }
+
         public List<ShoppingCartItem> GetProducts(int shoppingCartId)
         {
             using (IDbConnection connection = conn.GetConnection)
@@ -45,11 +64,29 @@ namespace CKK.DB.Repository
             }
         }
 
+        public async Task<List<ShoppingCartItem>> GetProductsAsync(int shoppingCartId)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var itemTask = await Task.Run( () => connection.Query<ShoppingCartItem>("dbo.ShoppingCartItems_GetProducts @ShoppingCartId", new { ShoppingCartId = shoppingCartId }).ToList());
+                return itemTask;
+            }
+        }
+
         public decimal GetTotal(int shoppingCartId)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
                 var item = connection.Query<decimal>("dbo.ShoppingCartItems_GetTotal @ShoppingCartId", new {ShoppingCartId = shoppingCartId}).ToList();
+                return item.FirstOrDefault();
+            }
+        }
+
+        public async Task<decimal> GetTotalAsync(int shoppingCartId)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = await Task.Run( () => connection.Query<decimal>("dbo.ShoppingCartItems_GetTotal @ShoppingCartId", new { ShoppingCartId = shoppingCartId }).ToList());
                 return item.FirstOrDefault();
             }
         }
@@ -64,6 +101,15 @@ namespace CKK.DB.Repository
             using (IDbConnection connection = conn.GetConnection)
             {
                 var item = connection.Execute("dbo.ShoppingCartItems_Update @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity);
+                return item;
+            }
+        }
+
+        public async Task<int> UpdateAsync(ShoppingCartItem entity)
+        {
+            using (IDbConnection connection = conn.GetConnection)
+            {
+                var item = await Task.Run( () = connection.Execute("dbo.ShoppingCartItems_Update @CustomerId, @ShoppingCartId, @ProductId, @Quantity", entity));
                 return item;
             }
         }

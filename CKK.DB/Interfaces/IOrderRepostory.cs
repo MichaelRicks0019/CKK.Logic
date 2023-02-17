@@ -9,8 +9,10 @@ namespace CKK.DB.Interfaces
 {
     public interface IOrderRepository<Order> : IGenericRepository<Order>
     {
+        //Regular Methods
         Order GetOrderByCustomerId(int id);
 
-        Task<Order> GetOrderByCustomerIdAsync();
+        //Async Methods
+        Task<Order> GetOrderByCustomerIdAsync(int id);
     }
 }
