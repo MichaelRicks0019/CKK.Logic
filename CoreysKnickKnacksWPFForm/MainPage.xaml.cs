@@ -41,7 +41,7 @@ namespace CoreysKnickKnacksWPFForm
 
         private void RefreshList()
         {
-            lbInventoryList.Items.Clear();
+            lbInventoryList.ItemsSource = string.Empty;
             lbInventoryList.ItemsSource = UOW.Products.GetAll();
         }
 

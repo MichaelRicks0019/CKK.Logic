@@ -103,6 +103,7 @@ namespace CKK.DB.Repository
                 return product;
             }
         }
+
         public async Task<List<Product>> GetByNameAsync(string name)
         {
             using (IDbConnection connection = conn.GetConnection)
@@ -111,7 +112,6 @@ namespace CKK.DB.Repository
                 return productTask;
             }
         }
-
 
         public int Update(Product entity)
         {

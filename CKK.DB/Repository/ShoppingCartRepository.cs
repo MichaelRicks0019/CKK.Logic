@@ -48,30 +48,12 @@ namespace CKK.DB.Repository
             }
         }
 
-        public async Task<int> ClearCartAsync(int shoppingCartId)
-        {
-            using (IDbConnection connection = conn.GetConnection)
-            {
-                var itemTask = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_ClearCart @ShoppingCartId", new { ShoppingCartId = shoppingCartId }));
-                return itemTask;
-            }
-        }
-
         public List<ShoppingCartItem> GetProducts(int shoppingCartId)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
                 var item = connection.Query<ShoppingCartItem>("dbo.ShoppingCartItems_GetProducts @ShoppingCartId", new { ShoppingCartId = shoppingCartId }).ToList();
                 return item;
-            }
-        }
-
-        public async Task<List<ShoppingCartItem>> GetProductsAsync(int shoppingCartId)
-        {
-            using (IDbConnection connection = conn.GetConnection)
-            {
-                var itemTask = await Task.Run( () => connection.Query<ShoppingCartItem>("dbo.ShoppingCartItems_GetProducts @ShoppingCartId", new { ShoppingCartId = shoppingCartId }).ToList());
-                return itemTask;
             }
         }
 
@@ -84,28 +66,11 @@ namespace CKK.DB.Repository
             }
         }
 
-        public async Task<decimal> GetTotalAsync(int shoppingCartId)
-        {
-            using (IDbConnection connection = conn.GetConnection)
-            {
-                var item = await Task.Run( () => connection.Query<decimal>("dbo.ShoppingCartItems_GetTotal @ShoppingCartId", new { ShoppingCartId = shoppingCartId }).ToList());
-                return item.FirstOrDefault();
-            }
-        }
-
         public void Ordered(int shoppingCartId)
         {
             using (IDbConnection connection = conn.GetConnection)
             {
                 var item = connection.Execute("dbo.ShoppingCartItems_Ordered @ShoppingCartId,", new { ShoppingCartId = shoppingCartId } );
-            }
-        }
-
-        public async Task OrderedAsync(int shoppingCartId)
-        {
-            using (IDbConnection connection = conn.GetConnection)
-            {
-                var item = await Task.Run( () => connection.Execute("dbo.ShoppingCartItems_Ordered @ShoppingCartId,", new { ShoppingCartId = shoppingCartId }));
             }
         }
 

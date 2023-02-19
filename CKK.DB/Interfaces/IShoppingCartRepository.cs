@@ -25,14 +25,6 @@ namespace CKK.DB.Interfaces
         int Add(ShoppingCartItem entity);
 
         //Async Methods
-        Task<int> ClearCartAsync(int shoppingCartId);
-
-        Task<decimal> GetTotalAsync(int shoppingCartId);
-
-        Task<List<ShoppingCartItem>> GetProductsAsync(int shoppingCartId);
-
-        Task OrderedAsync(int shoppingCartId);
-
         Task<int> UpdateAsync(ShoppingCartItem entity);
 
         Task<int> AddAsync(ShoppingCartItem entity);

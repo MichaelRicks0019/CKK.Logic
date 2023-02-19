@@ -7,6 +7,7 @@ using CKK.Online.Models;
 using Microsoft.Azure.Management.ResourceManager.Models;
 using Microsoft.TeamFoundation.Build.WebApi;
 using CKK.Logic.Models;
+using System.Threading.Tasks;
 
 namespace CKK.Online.Controllers
 {
@@ -46,17 +47,5 @@ namespace CKK.Online.Controllers
             var total = UOW.ShoppingCarts.GetTotal(order.ShoppingCartId).ToString("c");
             return Ok(total);
         }
-
-        /*[HttpGet]
-        public IActionResult Add(Product prod) 
-        {
-            var order = UOW.Orders.GetById(1);
-            ShoppingCartItem item = new ShoppingCartItem() { CustomerId = order.CustomerId, ShoppingCartId = order.ShoppingCartId, ProductId = prod.Id, Quantity = prod.Quantity };
-
-            var test = UOW.ShoppingCarts.Add(item);
-
-            var total = UOW.ShoppingCarts.GetTotal(order.ShoppingCartId).ToString("c");
-            return Ok(total);
-        }*/
     }
 }
