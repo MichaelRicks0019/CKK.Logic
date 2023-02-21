@@ -42,7 +42,35 @@ namespace CKK.Online.Controllers
         {
             var order = UOW.Orders.GetByIdAsync(1).Result;
             ShoppingCartItem item = new ShoppingCartItem() { CustomerId = order.CustomerId, ShoppingCartId = order.ShoppingCartId, ProductId = productId, Quantity = quantity };
-            var test = UOW.ShoppingCarts.Add(item);
+            var items = UOW.ShoppingCarts.GetProducts(order.ShoppingCartId);
+            //Checks if products is already in ShoppingCart. If so, update feature is used.
+            bool productExists = false;
+            bool productMaxQuantity = false;
+
+            foreach(ShoppingCartItem i in items)
+            {
+                if(i.ProductId == productId)
+                {
+                    productExists = true;
+                    if(productExists == true && item.Quantity > i.Quantity)
+                    {
+                        productMaxQuantity = true;
+                        break;
+                    }
+                }
+            }
+            if(productExists == true)
+            {
+                UOW.ShoppingCarts.Update(item);
+            }
+            else if (productMaxQuantity == true)
+            {
+
+            }
+            else
+            {
+                UOW.ShoppingCarts.Add(item);
+            }
 
             var total = UOW.ShoppingCarts.GetTotal(order.ShoppingCartId).ToString("c");
             return Ok(total);
