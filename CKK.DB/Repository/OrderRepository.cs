@@ -16,11 +16,14 @@ namespace CKK.DB.Repository
     {
         public IConnectionFactory conn;
         
+        //Connection is created when Repository is created
         public OrderRepository(IConnectionFactory Conn)
             {
                 conn = Conn;
             }
 
+        //Methods use queries that refer to stored procedures that are located in the database
+        //Refer to the interfaces for more info on what each method does
         public int Add(Order entity)
         {
             using (IDbConnection connection = conn.GetConnection)

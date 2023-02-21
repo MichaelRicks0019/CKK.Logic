@@ -15,12 +15,15 @@ namespace CKK.DB.Repository
     public class ProductRepository<Product> : IProductRepository<Product> where Product : CKK.Logic.Models.Product
     {
         public IConnectionFactory conn;
-        
+
+        //Connection is created when Repository is created
         public ProductRepository(IConnectionFactory Conn) 
         {
              conn = Conn;
         }
 
+        //Methods use queries that refer to stored procedures that are located in the database
+        //Refer to the interfaces for more info on what each method does
         public int Add(Product entity)
         {
             using (IDbConnection connection = conn.GetConnection)

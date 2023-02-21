@@ -16,11 +16,15 @@ namespace CKK.DB.Repository
     public class ShoppingCartRepository : IShoppingCartRepository
     {
         public IConnectionFactory conn;
+
+        //Connection is created when Repository is created
         public ShoppingCartRepository(IConnectionFactory Conn)
         {
             conn = Conn;
         }
 
+        //Methods use queries that refer to stored procedures that are located in the database
+        //Refer to the interfaces for more info on what each method does
         public int Add(ShoppingCartItem entity)
         {
             using (IDbConnection connection = conn.GetConnection)

@@ -19,7 +19,7 @@ namespace CKK.DB.UOW
 
         private readonly string connectionString = @"Server=localhost\SQLEXPRESS01;Database=StructuredProjectDB;Trusted_Connection=True;";
 			 
-
+        //This returns the connection to the database and result can be inputed in Unit Of Work parameter
         public IDbConnection GetConnection
         {
             get

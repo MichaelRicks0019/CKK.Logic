@@ -10,6 +10,7 @@ namespace CKK.Online.Models
         public IUnitOfWork UOW { get; set; }
         private IConnectionFactory conn = new DatabaseConnectionFactory();
 
+        //Order is deleted and recreated for user. This is for testing
         public ShopModel(IUnitOfWork unitOfWork)
         {
             unitOfWork = new UnitOfWork(conn);

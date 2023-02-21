@@ -10,9 +10,13 @@ namespace CKK.DB.Interfaces
     public interface IOrderRepository<Order> : IGenericRepository<Order>
     {
         //Regular Methods
+
+        //Returns Order based on CustomerId
         Order GetOrderByCustomerId(int id);
 
         //Async Methods
+
+        //Same as above but asynchronous
         Task<Order> GetOrderByCustomerIdAsync(int id);
     }
 }

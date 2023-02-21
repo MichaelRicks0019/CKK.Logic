@@ -12,6 +12,7 @@ namespace CKK.DB.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
+        //These are what are called when a new Unit of Work is created.
         public IProductRepository<Product> Products { get; }
 
         public IOrderRepository<Order> Orders { get; }
